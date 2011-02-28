@@ -83,7 +83,7 @@
   <ItemGroup>
     <Reference Include="gdal_csharp, Version=1.0.3725.37720, Culture=neutral, PublicKeyToken=db5a52b08dc5b321">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\gdal\gdal-1.6.2\swig\csharp\gdal_csharp.dll</HintPath>
+      <HintPath>..\..\..\..\gdal\gdal-1.6.2\swig\csharp\gdal_csharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>

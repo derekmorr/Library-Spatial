@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyDescription("Library API")]
 [assembly: AssemblyCopyright("Copyright 2010 Green Code LLC")]
 
-[assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("0.81.*")]
 
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
