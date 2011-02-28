@@ -31,6 +31,8 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="DriverInfo.cs" />
     <Compile Include="GdalDriverInfo.cs" />
     <Compile Include="Grid.cs" />

@@ -31,6 +31,7 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs" />
     <Compile Include="ActiveSite.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Band.cs" />
