@@ -1,4 +1,4 @@
-// Copyright 2010 Green Code LLC
+// Copyright 2010-2011 Green Code LLC
 // All rights reserved.
 //
 // The copyright holders license this file under the New (3-clause) BSD
@@ -60,13 +60,14 @@ namespace Landis.SpatialModeling.CoreServices.RasterIO
             if (! extToDriver.TryGetValue(extension, out driver))
                 throw new ApplicationException(string.Format("Unknown file extension: \"{0}\"", extension));
 
-            // Determine the minimum data type to hold all the pixel's bands
-            // TO DO:
-            DataType dataType = DataType.GDT_Float32;
-            //DataType dataType = GdalDataType.Union(DataType.GDT_Int16, DataType.GDT_Float32);
-
             bufferPixel = new TPixel();
             int nBands = bufferPixel.Count;
+
+            // Determine the minimum data type to hold all the pixel's bands
+            DataType dataType = GdalDataType.FromTypeCode(bufferPixel[1].TypeCode);
+            for (int bandNum = 2; bandNum <= nBands; ++bandNum) {
+                dataType = GdalDataType.Union(dataType, GdalDataType.FromTypeCode(bufferPixel[bandNum].TypeCode));
+            }
 
             rasterBands = new IOutputBand[nBands];
             string[] options = { };

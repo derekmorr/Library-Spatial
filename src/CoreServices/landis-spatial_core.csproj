@@ -56,6 +56,7 @@
     <Compile Include="RasterIO\BandBuffer.cs" />
     <Compile Include="RasterIO\BlockDimensions.cs" />
     <Compile Include="RasterIO\GdalBandIO.cs" />
+    <Compile Include="RasterIO\GdalDataType.cs" />
     <Compile Include="RasterIO\GdalInputRaster.cs" />
     <Compile Include="RasterIO\GdalOutputRaster.cs" />
     <Compile Include="RasterIO\GdalSystem.cs" />
