@@ -25,6 +25,7 @@ namespace LandisII.Examples
 
             rasterFactory.BindExtensionToFormat(".bin", "ENVI" );
             rasterFactory.BindExtensionToFormat(".bmp", "BMP"  );
+            rasterFactory.BindExtensionToFormat(".gis", "LAN"  );
             rasterFactory.BindExtensionToFormat(".img", "HFA"  );
             rasterFactory.BindExtensionToFormat(".tif", "GTiff");
         }
