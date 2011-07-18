@@ -1,18 +1,33 @@
 using Landis.SpatialModeling;
 using Landis.SpatialModeling.CoreServices;
+using LandisII.Examples.SimpleExtension;
 using System;
 
 namespace LandisII.Examples
 {
     public class Core : LandisII.Examples.SimpleCore.ICore
     {
-        private RasterFactory rasterFactory;
+        private IRasterFactory rasterFactory;
         private ILandscape landscape;
         private ISiteVar<int> ecoregions;
 
-        public Core()
+        /// <summary>
+        /// Construct a new instance of the model core.
+        /// </summary>
+        /// <param name="rasterFactory">
+        /// A <see cref="IRasterFactory"/> that the core uses to open and
+        /// create rasters.  A mock factory can be passed for testing
+        /// purposes.
+        /// </param>
+        public Core(IRasterFactory rasterFactory)
         {
-            rasterFactory = new RasterFactory();
+            this.rasterFactory = rasterFactory;
+        }
+
+        public void RunScenario(string path)
+        {
+            // path to scenario file ignored
+
             landscape = LandscapeFactory.CreateLandscape(Ecoregions.CreateGrid());
  
             ecoregions = landscape.NewSiteVar<int>();
@@ -20,6 +35,13 @@ namespace LandisII.Examples
                 ecoregions[site] = Ecoregions.Codes[site.Location.Row-1, site.Location.Column-1];
             }
             ecoregions.InactiveSiteValues = -1;
+
+            // Instantiate the main class of the example extension, passing
+            //   the core to it.
+            ExtensionMain extensionMain = new ExtensionMain(this);
+
+            // Run the extension.
+            extensionMain.Run();
        }
 
 #region ICore members

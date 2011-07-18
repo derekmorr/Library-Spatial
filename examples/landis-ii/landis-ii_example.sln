@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "landis-ii_core-api", "core-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "landis-ii_extension", "ext\landis-ii_extension.csproj", "{78B2ED0A-8FAF-4F54-A016-A16B089FAD0D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "landis-ii_console", "console\landis-ii_console.csproj", "{9461AD29-95D4-4AFC-B43E-45B803C7B415}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -21,12 +23,16 @@ Global
 		{78B2ED0A-8FAF-4F54-A016-A16B089FAD0D}.Debug|x86.Build.0 = Debug|Any CPU
 		{78B2ED0A-8FAF-4F54-A016-A16B089FAD0D}.Release|x86.ActiveCfg = Release|Any CPU
 		{78B2ED0A-8FAF-4F54-A016-A16B089FAD0D}.Release|x86.Build.0 = Release|Any CPU
+		{9461AD29-95D4-4AFC-B43E-45B803C7B415}.Debug|x86.ActiveCfg = Debug|x86
+		{9461AD29-95D4-4AFC-B43E-45B803C7B415}.Debug|x86.Build.0 = Debug|x86
+		{9461AD29-95D4-4AFC-B43E-45B803C7B415}.Release|x86.ActiveCfg = Release|x86
+		{9461AD29-95D4-4AFC-B43E-45B803C7B415}.Release|x86.Build.0 = Release|x86
 		{96A76F50-D7DC-416F-AA63-15607D56DA89}.Debug|x86.ActiveCfg = Debug|x86
 		{96A76F50-D7DC-416F-AA63-15607D56DA89}.Debug|x86.Build.0 = Debug|x86
 		{96A76F50-D7DC-416F-AA63-15607D56DA89}.Release|x86.ActiveCfg = Release|x86
 		{96A76F50-D7DC-416F-AA63-15607D56DA89}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = core\landis-ii_core.csproj
+		StartupItem = console\landis-ii_console.csproj
 	EndGlobalSection
 EndGlobal
