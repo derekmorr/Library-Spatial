@@ -1,4 +1,4 @@
-LANDIS Spatial Modeling Library version 0.81
+LANDIS Spatial Modeling Library version 0.82
 
 This release contains:
 
@@ -6,6 +6,4 @@ This release contains:
 
   Landis.SpatialModeling.CoreServices.dll -- the library's implementation
 
-This release does NOT contain GDAL files; those will be included in future
-releases.  The purpose of this release is to facilitate beta releases by
-the LANDIS-II team; the team is including the GDAL files in its releases.
+  GDAL files for 32-bit Windows
