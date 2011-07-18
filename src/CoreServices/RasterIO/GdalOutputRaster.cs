@@ -15,7 +15,6 @@
 using OSGeo.GDAL;
 using GdalBand = OSGeo.GDAL.Band;
 using System;
-using System.Collections.Generic;
 
 namespace Landis.SpatialModeling.CoreServices.RasterIO
 {
@@ -32,33 +31,20 @@ namespace Landis.SpatialModeling.CoreServices.RasterIO
         private Dataset dataset;
         private IOutputBand[] rasterBands;
  
-        static IDictionary<string, Driver> extToDriver; // maps file extension to GDAL driver
-
         static GdalOutputRaster()
         {
             GdalSystem.Initialize();
-
-            extToDriver = new Dictionary<string, Driver>(StringComparer.InvariantCultureIgnoreCase);
-            extToDriver[".bin"] = Gdal.GetDriverByName("ENVI");
-            extToDriver[".bmp"] = Gdal.GetDriverByName("BMP");
-            extToDriver[".img"] = Gdal.GetDriverByName("HFA");
-            extToDriver[".tif"] = Gdal.GetDriverByName("GTiff");
         }
 
         public GdalOutputRaster(string     path,
-                                Dimensions dimensions)
+                                Dimensions dimensions,
+                                Driver     driver)
             : base(path, dimensions)
         {
-            // Fetch extension from path.
-            // Get the GDAL driver associated with that extension.
-            string extension = System.IO.Path.GetExtension(path);
-            if (extension == null)
+            if (path == null)
                 throw new ArgumentNullException("path argument is null");
-            if (extension == string.Empty)
-                throw new ArgumentException("path has no extension");
-            Driver driver;
-            if (! extToDriver.TryGetValue(extension, out driver))
-                throw new ApplicationException(string.Format("Unknown file extension: \"{0}\"", extension));
+            if (driver == null)
+                throw new ArgumentNullException("driver argument is null");
 
             bufferPixel = new TPixel();
             int nBands = bufferPixel.Count;

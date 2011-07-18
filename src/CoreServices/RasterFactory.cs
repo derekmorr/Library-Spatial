@@ -1,4 +1,4 @@
-// Copyright 2010 Green Code LLC
+// Copyright 2010-2011 Green Code LLC
 // All rights reserved.
 //
 // The copyright holders license this file under the New (3-clause) BSD
@@ -13,26 +13,76 @@
 //   James Domingo, Green Code LLC
 
 using Landis.SpatialModeling.CoreServices.RasterIO;
+using OSGeo.GDAL;
+using System;
+using System.Collections.Generic;
 
 namespace Landis.SpatialModeling.CoreServices
 {
-    public class RasterFactory : IRasterFactory
+    public class RasterFactory : IConfigurableRasterFactory
     {
+        private IDictionary<string, Driver> extToDriver;
+ 
+        //---------------------------------------------------------------------
+
+        static RasterFactory()
+        {
+            GdalSystem.Initialize();
+        }
+ 
+        //---------------------------------------------------------------------
+
         public RasterFactory ()
         {
+            extToDriver = new Dictionary<string, Driver>(StringComparer.InvariantCultureIgnoreCase);
         }
+ 
+        //---------------------------------------------------------------------
+
+        public void BindExtensionToFormat(string fileExtension,
+                                          string formatCode)
+        {
+            if (fileExtension == null)
+                throw new ArgumentNullException("fileExtension");
+            if (fileExtension.Length == 0 || fileExtension[0] != '.')
+                throw new ArgumentException("fileExtension does not start with a period");
+
+            if (formatCode == null) {
+                extToDriver.Remove(fileExtension);
+            } else {
+                Driver driver = Gdal.GetDriverByName(formatCode);
+                if (driver == null)
+                    throw new ArgumentException(string.Format("Unknown format code: \"{0}\"", formatCode));
+                extToDriver[fileExtension] = driver;
+            }
+        }
+ 
+        //---------------------------------------------------------------------
 
         public IInputRaster<TPixel> OpenRaster<TPixel>(string path)
             where TPixel : Pixel, new()
         {
             return new GdalInputRaster<TPixel>(path);
         }
+ 
+        //---------------------------------------------------------------------
 
         public IOutputRaster<TPixel> CreateRaster<TPixel>(string     path,
                                                           Dimensions dimensions)
             where TPixel : Pixel, new()
         {
-            return new GdalOutputRaster<TPixel>(path, dimensions);
+            // Fetch extension from path.
+            // Get the GDAL driver associated with that extension.
+            string extension = System.IO.Path.GetExtension(path);
+            if (extension == null)
+                throw new ArgumentNullException("path");
+            if (extension == string.Empty)
+                throw new ArgumentException("path has no extension");
+            Driver driver;
+            if (! extToDriver.TryGetValue(extension, out driver))
+                throw new ApplicationException(string.Format("Unknown file extension: \"{0}\"", extension));
+
+            return new GdalOutputRaster<TPixel>(path, dimensions, driver);
         }
     }
 }

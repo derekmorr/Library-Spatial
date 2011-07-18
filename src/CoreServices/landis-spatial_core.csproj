@@ -36,6 +36,7 @@
     <Compile Include="DriverInfo.cs" />
     <Compile Include="GdalDriverInfo.cs" />
     <Compile Include="Grid.cs" />
+    <Compile Include="IConfigurableRasterFactory.cs" />
     <Compile Include="IIndexableGrid.cs" />
     <Compile Include="IInputGrid.cs" />
     <Compile Include="LandscapeFactory.cs" />

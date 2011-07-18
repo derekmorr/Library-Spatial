@@ -7,7 +7,7 @@ namespace LandisII.Examples
 {
     public class Core : LandisII.Examples.SimpleCore.ICore
     {
-        private IRasterFactory rasterFactory;
+        private IConfigurableRasterFactory rasterFactory;
         private ILandscape landscape;
         private ISiteVar<int> ecoregions;
 
@@ -15,13 +15,18 @@ namespace LandisII.Examples
         /// Construct a new instance of the model core.
         /// </summary>
         /// <param name="rasterFactory">
-        /// A <see cref="IRasterFactory"/> that the core uses to open and
-        /// create rasters.  A mock factory can be passed for testing
+        /// A <see cref="IConfigurableRasterFactory"/> that the core uses to
+        /// open and create rasters.  A mock factory can be passed for testing
         /// purposes.
         /// </param>
-        public Core(IRasterFactory rasterFactory)
+        public Core(IConfigurableRasterFactory rasterFactory)
         {
             this.rasterFactory = rasterFactory;
+
+            rasterFactory.BindExtensionToFormat(".bin", "ENVI" );
+            rasterFactory.BindExtensionToFormat(".bmp", "BMP"  );
+            rasterFactory.BindExtensionToFormat(".img", "HFA"  );
+            rasterFactory.BindExtensionToFormat(".tif", "GTiff");
         }
 
         public void RunScenario(string path)
