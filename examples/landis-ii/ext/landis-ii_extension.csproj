@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Landis.SpatialModeling, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <Reference Include="Landis.SpatialModeling, Version=0.81.4076.21024, Culture=neutral, PublicKeyToken=null">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\src\api\bin\Debug\Landis.SpatialModeling.dll</HintPath>
     </Reference>
