@@ -1,4 +1,5 @@
-using Landis.SpatialModeling.CoreServices;
+using Landis.Landscapes;
+using Landis.RasterIO.Gdal;
 
 namespace LandisII.Examples
 {
@@ -8,7 +9,8 @@ namespace LandisII.Examples
         {
             System.Console.WriteLine("Initializing LANDIS-II core...");
             RasterFactory rasterFactory = new RasterFactory();
-            Core modelCore = new Core(rasterFactory);
+            LandscapeFactory landscapeFactory = new LandscapeFactory();
+            Core modelCore = new Core(rasterFactory, landscapeFactory);
 
             // Run a scenario using the model's core.
             modelCore.RunScenario("path/to/scenario.txt");

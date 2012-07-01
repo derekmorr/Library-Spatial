@@ -17,31 +17,23 @@ solution "landis-ii_example"
     targetdir ( build_dir .. "/Release" )
  
   -- LANDIS-II console
-  project "landis-ii_console"
+  project "LandisII_Examples_Console"
     location "console"
     kind "ConsoleApp"
     targetname "LandisII.Examples.Console"
     files { "console/*.cs" }
     links {
       "Landis.SpatialModeling",
-      "Landis.SpatialModeling.CoreServices",
+      "Landis.Landscapes",
+      "Landis.RasterIO",
+      "Landis.RasterIO.Gdal",
       "System",
-      "landis-ii_core",
-      "landis-ii_core-api"
+      "LandisII_Examples_SimpleCore",      -- API project
+      "LandisII_Examples_SimpleCore_Impl"  -- implementation project
     }
-    -- configuration "Debug"
-    --   links {
-    --     build_dir .. "/Debug/Landis.SpatialModeling.dll",
-    --     build_dir .. "/Debug/Landis.SpatialModeling.CoreServices.dll",
-    --   }
-    -- configuration "Release"
-    --   links {
-    --     build_dir .. "/Release/Landis.SpatialModeling.dll",
-    --     build_dir .. "/Release/Landis.SpatialModeling.CoreServices.dll",
-    --   }
 
   -- LANDIS-II model core (API; referenced by LANDIS-II extensions)
-  project "landis-ii_core-api"
+  project "LandisII_Examples_SimpleCore"
     location "core-api"
     kind "SharedLib"
     targetname "LandisII.Examples.SimpleCore"
@@ -50,37 +42,22 @@ solution "landis-ii_example"
       "Landis.SpatialModeling",
       "System"
     }
-    -- configuration "Debug"
-    --   libdirs { build_dir .. "/Debug" }
-    -- configuration "Release"
-    --   libdirs { build_dir .. "/Release" }
 
   -- LANDIS-II model core (implementation)
-  project "landis-ii_core"
+  project "LandisII_Examples_SimpleCore_Impl"
     location "core"
     kind "SharedLib"
     targetname "LandisII.Examples.SimpleCore.Impl"
     files { "core/**.cs" }
     links {
       "Landis.SpatialModeling",
-      "Landis.SpatialModeling.CoreServices",
       "System",
-      "landis-ii_core-api",
-      "landis-ii_extension"
+      "LandisII_Examples_SimpleCore",      -- API project
+      "LandisII_Examples_SimpleExtension"  -- extension project
     }
-    -- configuration "Debug"
-    --   links {
-    --     build_dir .. "/Debug/Landis.SpatialModeling.dll",
-    --     build_dir .. "/Debug/Landis.SpatialModeling.CoreServices.dll",
-    --   }
-    -- configuration "Release"
-    --   links {
-    --     build_dir .. "/Release/Landis.SpatialModeling.dll",
-    --     build_dir .. "/Release/Landis.SpatialModeling.CoreServices.dll",
-    --   }
 
   -- LANDIS-II extension
-  project "landis-ii_extension"
+  project "LandisII_Examples_SimpleExtension"
     location "ext"
     kind "SharedLib"
     targetname "LandisII.Examples.SimpleExtension"
@@ -88,9 +65,5 @@ solution "landis-ii_example"
     links {
       "Landis.SpatialModeling",
       "System",
-      "landis-ii_core-api"
+      "LandisII_Examples_SimpleCore"       -- API project
     }
-    -- configuration "Debug"
-    --   links { build_dir .. "/Debug/Landis.SpatialModeling.dll" }
-    -- configuration "Release"
-    --   links { build_dir .. "/Release/Landis.SpatialModeling.dll" }

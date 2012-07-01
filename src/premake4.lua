@@ -53,7 +53,7 @@ solution "landis-spatial"
     targetdir ( build_dir .. "/Release" )
  
   -- The library's API
-  project "landis-spatial_api"
+  project "Landis_SpatialModeling"
     location "api"
     kind "SharedLib"
     targetname "Landis.SpatialModeling"
@@ -63,17 +63,46 @@ solution "landis-spatial"
     }
     links { "System" }
 
-  -- The library's implementation (services provided by a model's core)
-  project "landis-spatial_core"
-    location "CoreServices"
+  -- Implementation of the Landscape module
+  project "Landis_Landscapes"
+    location "Landscapes"
     kind "SharedLib"
-    targetname "Landis.SpatialModeling.CoreServices"
+    targetname "Landis.Landscapes"
     files {
-      "CoreServices/**.cs",
+      "Landscapes/**.cs",
       "SharedAssemblyInfo.cs"
     }
     links {
       "System",
-      "landis-spatial_api",
+      "Landis_SpatialModeling"
+    }
+
+  -- Data types shared by Raster I/O implementations
+  project "Landis_RasterIO"
+    location "RasterIO"
+    kind "SharedLib"
+    targetname "Landis.RasterIO"
+    files {
+      "RasterIO/**.cs",
+      "SharedAssemblyInfo.cs"
+    }
+    links {
+      "System",
+      "Landis_SpatialModeling",
+    }
+
+  -- Implementation of the Raster I/O module using GDAL
+  project "Landis_RasterIO_Gdal"
+    location "RasterIO.Gdal"
+    kind "SharedLib"
+    targetname "Landis.RasterIO.Gdal"
+    files {
+      "RasterIO.Gdal/**.cs",
+      "SharedAssemblyInfo.cs"
+    }
+    links {
+      "System",
+      "Landis_SpatialModeling",
+      "Landis_RasterIO",
       gdal_csharp_dir.."/gdal_csharp.dll"
     }
