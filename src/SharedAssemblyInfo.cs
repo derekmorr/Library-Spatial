@@ -1,7 +1,7 @@
 using System.Reflection;
 
 [assembly: AssemblyProduct("LANDIS Spatial Modeling Library")]
-[assembly: AssemblyVersion("0.83.*")]
+[assembly: AssemblyVersion("0.84.*")]
 
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
