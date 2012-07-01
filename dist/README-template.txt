@@ -4,4 +4,10 @@ This release contains:
 
   Landis.SpatialModeling.dll -- the library's API
 
-  Landis.SpatialModeling.CoreServices.dll -- the library's implementation
+  Landis.Landscapes.dll -- implementation of the library's Landscapes API
+
+  Landis.RasterIO.dll -- module shared by various implementations of the
+                         library's RasterIO API
+
+  Landis.RasterIO.Gdal.dll -- implementation of the library's RasterIO API
+                              using GDAL's C# bindings (not included)

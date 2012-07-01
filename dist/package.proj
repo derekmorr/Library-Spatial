@@ -16,7 +16,9 @@
   <PropertyGroup>
     <AssemblyBuildDir>..\build\Release</AssemblyBuildDir>
     <ApiAssembly>$(AssemblyBuildDir)\Landis.SpatialModeling.dll</ApiAssembly>
-    <ImplAssembly>$(AssemblyBuildDir)\Landis.SpatialModeling.CoreServices.dll</ImplAssembly>
+    <LandscapesAssembly>$(AssemblyBuildDir)\Landis.Landscapes.dll</LandscapesAssembly>
+    <RasterIOAssembly>$(AssemblyBuildDir)\Landis.RasterIO.dll</RasterIOAssembly>
+    <GdalRasterIOAssembly>$(AssemblyBuildDir)\Landis.RasterIO.Gdal.dll</GdalRasterIOAssembly>
   </PropertyGroup>
 
   <Target Name="zip-file">
@@ -43,7 +45,9 @@
     <ItemGroup>
       <PackageContents Include="README.txt" />
       <PackageContents Include="$(ApiAssembly)" />
-      <PackageContents Include="$(ImplAssembly)" />
+      <PackageContents Include="$(LandscapesAssembly)" />
+      <PackageContents Include="$(RasterIOAssembly)" />
+      <PackageContents Include="$(GdalRasterIOAssembly)" />
     </ItemGroup>
     <Zip ZipFileName="LSML-$(LibVersion).zip"
          Files="@(PackageContents)"
