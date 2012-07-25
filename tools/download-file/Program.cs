@@ -118,7 +118,7 @@ namespace Landis.Tools.DownloadFile
             Console.Write("0%");
             client.DownloadFileAsync(uri, fileName);
             while (! downloadComplete)
-                Thread.Sleep(1000);  // Wait a second
+                Thread.Sleep(500);  // Wait 1/2 of a second
         }
 
         //---------------------------------------------------------------------
