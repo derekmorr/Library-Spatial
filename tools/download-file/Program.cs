@@ -142,6 +142,8 @@ namespace Landis.Tools.DownloadFile
         public static void DownloadProgress(object sender,
                                             DownloadProgressChangedEventArgs e)
         {
+            if (downloadComplete)
+                return;
             int currentPercentage = e.ProgressPercentage;
             while (displayedPercentage + displayIncrement <= currentPercentage) {
                 displayedPercentage += displayIncrement;
