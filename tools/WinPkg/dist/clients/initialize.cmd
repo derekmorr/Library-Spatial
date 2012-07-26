@@ -1,9 +1,28 @@
 @echo off
 
-rem  Run this script in its folder
-pushd %~dp0
+rem  Set environment variables for calling script to use
+set WinPkgTools=%~dp0
+
+rem  Remove trailing backslash
+set WinPkgTools=%WinPkgTools:~0,-1%
+
+set DownloadTool=%WinPkgTools%\Landis.Tools.DownloadFile.exe
+set ChecksumTool=%WinPkgTools%\checksum.exe
+set UnzipTool=%WinPkgTools%\unzip.exe
 
 setlocal
+
+rem  The download tool is already present; check if the other 2 tools have
+rem  already been downloaded.
+set MissingTool=no
+if not exist "%ChecksumTool%" set MissingTool=yes
+if not exist "%UnzipTool%"    set MissingTool=yes
+
+if "%MissingTool%" == "no" goto :eof
+
+
+echo Initializing toolkit in %WinPkgTools%\ ...
+
 set ScriptURL=$HeadURL$
 rem  Remove leading and trailing delimiters of svn keyword from the URL
 set ScriptURL=%ScriptURL:$HeadURL: =%
@@ -17,7 +36,7 @@ call :getFile checksum-LICENSE.txt
 call :getFile unzip.exe
 call :getFile Info-ZIP-LICENSE.txt
 
-popd
+echo Toolkit initialized
 goto :eof
 
 rem  -------------------------------------------------------------------------
@@ -30,7 +49,7 @@ if exist %FileName% (
   goto :eof
 )
 echo Downloading %FileName% ...
-.\Landis.Tools.DownloadFile.exe %DownloadURL%/%FileName% %FileName%
+"%DownloadTool%" %DownloadURL%/%FileName% "%WinPkgTools%\%FileName%"
 goto :eof
 
 rem  -------------------------------------------------------------------------
