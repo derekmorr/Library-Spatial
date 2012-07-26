@@ -27,31 +27,53 @@ rem ------------------------------------------------------------
 
 :copyFiles
 
-if not exist %DownloadTool% (
+call :isFileCurrent %DownloadTool% ..\current\Landis.Tools.DownloadFile.exe
+if "%IsFileCurrent%" == "no" (
   echo Copying DownloadFile tool to "%DownloadTool% ...
-  copy ..\current\Landis.Tools.DownloadFile.exe %DownloadTool%
+  copy /y ..\current\Landis.Tools.DownloadFile.exe %DownloadTool%
 )
 
 set ChecksumDir=..\..\external\checksum
-if not exist %ChecksumTool% (
+call :isFileCurrent %ChecksumTool% %ChecksumDir%\checksum.exe
+if "%IsFileCurrent%" == "no" (
   echo Copying checksum tool to "%ChecksumTool% ...
-  copy %ChecksumDir%\checksum.exe %ChecksumTool%
+  copy /y %ChecksumDir%\checksum.exe %ChecksumTool%
 )
-if not exist %ChecksumLicense% (
+call :isFileCurrent %ChecksumLicense% %ChecksumDir%\LICENSE.txt
+if "%IsFileCurrent%" == "no" (
   echo Copying checksum license into "%ChecksumLicense%" ...
-  copy %ChecksumDir%\LICENSE.txt %ChecksumLicense%
+  copy /y %ChecksumDir%\LICENSE.txt %ChecksumLicense%
 )
 
 set InfoZipDir=..\..\external\Info-ZIP
-if not exist %UnzipTool% (
+call :isFileCurrent %UnzipTool% %InfoZipDir%\unzip.exe
+if "%IsFileCurrent%" == "no" (
   echo Copying unzip tool to "%UnzipTool%" ...
-  copy %InfoZipDir%\unzip.exe %UnzipTool%
+  copy /y %InfoZipDir%\unzip.exe %UnzipTool%
 )
-if not exist %InfoZipLicense% (
+call :isFileCurrent %InfoZipLicense% %InfoZipDir%\LICENSE.txt
+if "%IsFileCurrent%" == "no" (
   echo Copying Info-ZIP license into "%InfoZipLicense%" ...
-  copy %InfoZipDir%\LICENSE.txt %InfoZipLicense%
+  copy /y %InfoZipDir%\LICENSE.txt %InfoZipLicense%
 )
 
+goto :eof
+
+rem ------------------------------------------------------------
+
+:isFileCurrent
+
+set File=%1
+set Source=%2
+
+if not exist %File% goto notCurrent
+fc /b %File% %Source% > nul
+if errorlevel 1 goto notCurrent
+set IsFileCurrent=yes
+goto :eof
+
+:notCurrent
+set IsFileCurrent=no
 goto :eof
 
 rem ------------------------------------------------------------
