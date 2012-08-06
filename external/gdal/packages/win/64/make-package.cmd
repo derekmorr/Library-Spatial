@@ -83,12 +83,19 @@ if "%NativeLibsCopied%" == "no" (
   echo GDAL libraries have already been copied to %NativeLibsDir% folder. 
 )
 
+set ManagedLibsDir=%DistributionDir%\managed
+if not exist %ManagedLibsDir% (
+  echo Making directory "%ManagedLibsDir%" ...
+  mkdir %ManagedLibsDir%
+)
+
 set CSharpDir=%DownloadDir%\bin\gdal\csharp
-if exist %DistributionDir%\gdal_csharp.dll (
+if exist %ManagedLibsDir%\gdal_csharp.dll (
   echo C# bindings have already been copied to %DistributionDir% folder. 
 ) else (
-  echo Copying C# bindings to %DistributionDir%\ ...
-  xcopy %CSharpDir%\*_csharp.dll %DistributionDir%
+  echo Copying managed libs of C# bindings to %ManagedLibsDir%\ ...
+  xcopy %CSharpDir%\*_csharp.dll %ManagedLibsDir%
+  echo Copying native libs of C# bindings to %NativeLibsDir%\ ...
   xcopy %CSharpDir%\*_wrap.dll %NativeLibsDir%
 )
 
