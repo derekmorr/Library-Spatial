@@ -6,10 +6,18 @@ set GdalPackageName=release-1500-x64-gdal-1-9-0-mapserver-6-0-1.zip
 set GdalPackageUrl=%GdalPackageSite%/Download.aspx?file=%GdalPackageName%
 set DownloadDir=download
 set DownloadedPackage=%DownloadDir%\%GdalPackageName%
+
 set DistributionDir=dist
 set ZipFile=gdal-1-9-0-csharp-win64.zip
-set InfoZipDir=..\..\..\..\Info-ZIP
+
+rem Assume working directory is {ProjectRoot}\external\gdal\packages\win\{#ofBits}
+set ExternalDir=..\..\..\..
+set InfoZipDir=%ExternalDir%\Info-ZIP
+set ProjectRoot=%ExternalDir%\..
+
+set DownloadTool=%ProjectRoot%\tools\current\Landis.Tools.DownloadFile.exe
 set UnzipTool=%InfoZipDir%\unzip.exe
+set ZipTool=%InfoZipDir%\zip.exe
 
 call :download
 call :extract
@@ -33,7 +41,6 @@ if not exist %DownloadDir% (
 )
 
 echo Downloading %GdalPackageName% ...
-set DownloadTool=..\..\..\..\..\tools\current\Landis.Tools.DownloadFile.exe
 %DownloadTool% %GdalPackageUrl% %DownloadedPackage%
 goto :eof
 
@@ -118,7 +125,6 @@ rem --------------------------------------------------------------------------
 
 :zipfile
 
-set ZipTool=%InfoZipDir%\zip.exe
 if exist %ZipFile% (
   echo %ZipFile% already exists.
 ) else (
