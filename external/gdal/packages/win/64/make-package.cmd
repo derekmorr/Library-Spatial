@@ -99,17 +99,17 @@ if exist %ManagedLibsDir%\gdal_csharp.dll (
   xcopy %CSharpDir%\*_wrap.dll %NativeLibsDir%
 )
 
-set VC90CrtDir=%NativeLibsDir%\Microsoft.VC90.CRT
+set VC90CrtDir=%ManagedLibsDir%\Microsoft.VC90.CRT
 if not exist %VC90CrtDir% (
   echo Making directory "%VC90CrtDir%" ...
   mkdir %VC90CrtDir%
 )
 set VC90CrtZip=Microsoft.VC90.CRT.zip
 if exist %VC90CrtDir%\msvcr90.dll (
-  echo %VC90CrtZip% already unpacked into %NativeLibsDir% folder.
+  echo %VC90CrtZip% already unpacked into %ManagedLibsDir% folder.
 ) else (
-  echo Extracting %VC90CrtZip% into %NativeLibsDir%\ ...
-  %UnzipTool% %VC90CrtZip% -d %NativeLibsDir%
+  echo Extracting %VC90CrtZip% into %ManagedLibsDir%\ ...
+  %UnzipTool% %VC90CrtZip% -d %ManagedLibsDir%
 )
 
 goto :eof
