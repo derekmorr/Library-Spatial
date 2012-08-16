@@ -3,6 +3,11 @@
 setlocal
 set Bits=%1
 
+rem Assume working directory is {ProjectRoot}\external\gdal\packages\win\{#ofBits}
+set ExternalDir=..\..\..\..
+set InfoZipDir=%ExternalDir%\Info-ZIP
+set ProjectRoot=%ExternalDir%\..
+
 set GdalPackageSite=http://www.gisinternals.com/sdk
 if %Bits% == 32 set PackageBitId=
 if %Bits% == 64 set PackageBitId=-x64
@@ -13,11 +18,6 @@ set DownloadedPackage=%DownloadDir%\%GdalPackageName%
 
 set DistributionDir=dist
 set ZipFile=gdal-1-9-0-csharp-win%Bits%.zip
-
-rem Assume working directory is {ProjectRoot}\external\gdal\packages\win\{#ofBits}
-set ExternalDir=..\..\..\..
-set InfoZipDir=%ExternalDir%\Info-ZIP
-set ProjectRoot=%ExternalDir%\..
 
 set DownloadTool=%ProjectRoot%\tools\current\Landis.Tools.DownloadFile.exe
 set UnzipTool=%InfoZipDir%\unzip.exe
