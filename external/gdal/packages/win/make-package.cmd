@@ -94,6 +94,17 @@ if not exist %DistributionDir% (
   mkdir %DistributionDir%
 )
 
+set ReadMe=%DistributionDir%\README.txt
+set ReadMeTemplate=%GdalDir%\packages\README-template.txt
+if not exist %ReadMe% (
+  echo Creating %ReadMe% ...
+  copy %ReadMeTemplate% %ReadMe%
+  echo. >> %ReadMe%
+  echo GDAL %GdalVersion:-=.% >> %ReadMe%
+  echo Platform: %Bits%-bit Windows >> %ReadMe%
+  echo Compiler: MSVC 2008 >> %ReadMe%
+)
+
 set NativeLibsDir=%DistributionDir%\native
 if not exist %NativeLibsDir% (
   echo Making directory "%NativeLibsDir%" ...
