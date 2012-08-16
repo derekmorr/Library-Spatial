@@ -4,20 +4,38 @@ setlocal
 set Bits=%1
 
 rem Assume working directory is {ProjectRoot}\external\gdal\packages\win\{#ofBits}
-set ExternalDir=..\..\..\..
+set GdalDir=..\..\..
+set ExternalDir=%GdalDir%\..
 set InfoZipDir=%ExternalDir%\Info-ZIP
 set ProjectRoot=%ExternalDir%\..
+
+rem Get GDAL version in "#-#-#" format
+for /f %%v in (%GdalDir%\version.txt) do set GdalVersion=%%v
+set GdalVersion=%GdalVersion:.=-%
+echo GDAL version %GdalVersion%
+
+rem Get the MapServer version that's distributed with that GDAL version
+rem at www.gisinternals.com
+for /f "tokens=1,2" %%g in (..\gdal-mapserver-versions.txt) do (
+  if "%%g" == "%GdalVersion%" set MapServerVersion=%%h
+)
+if "%MapServerVersion%" == "" (
+  echo Error: No MapServer version associated with that GDAL version
+  exit /b 1
+)
+set MapServerVersion=%MapServerVersion:.=-%
+echo MapServer version %MapServerVersion%
 
 set GdalPackageSite=http://www.gisinternals.com/sdk
 if %Bits% == 32 set PackageBitId=
 if %Bits% == 64 set PackageBitId=-x64
-set GdalPackageName=release-1500%PackageBitId%-gdal-1-9-0-mapserver-6-0-1.zip
+set GdalPackageName=release-1500%PackageBitId%-gdal-%GdalVersion%-mapserver-%MapServerVersion%.zip
 set GdalPackageUrl=%GdalPackageSite%/Download.aspx?file=%GdalPackageName%
 set DownloadDir=download
 set DownloadedPackage=%DownloadDir%\%GdalPackageName%
 
 set DistributionDir=dist
-set ZipFile=gdal-1-9-0-csharp-win%Bits%.zip
+set ZipFile=gdal-%GdalVersion%-csharp-win%Bits%.zip
 
 set DownloadTool=%ProjectRoot%\tools\current\Landis.Tools.DownloadFile.exe
 set UnzipTool=%InfoZipDir%\unzip.exe
