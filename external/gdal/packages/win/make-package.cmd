@@ -96,14 +96,18 @@ if not exist %DistributionDir% (
 
 set ReadMe=%DistributionDir%\README.txt
 set ReadMeTemplate=%GdalDir%\packages\README-template.txt
-if not exist %ReadMe% (
-  echo Creating %ReadMe% ...
-  copy %ReadMeTemplate% %ReadMe%
-  echo. >> %ReadMe%
-  echo GDAL %GdalVersion:-=.% >> %ReadMe%
-  echo Platform: %Bits%-bit Windows >> %ReadMe%
-  echo Compiler: MSVC 2008 >> %ReadMe%
+if exist %ReadMe% goto :nativeLibs
+
+echo Creating %ReadMe% ...
+for /f "tokens=*" %%L in (%ReadMeTemplate%) do (
+  if "%%L" == "GDAL @VERSION@" (
+    rem Blank line in template is ignored by "for" command, so add it back in
+    echo. >> %ReadMe%
+  )
+  call :templateLine "%%L" %ReadMe%
 )
+
+:nativeLibs
 
 set NativeLibsDir=%DistributionDir%\native
 if not exist %NativeLibsDir% (
@@ -151,6 +155,33 @@ if exist %VC90CrtDir%\msvcr90.dll (
   echo Extracting %VC90CrtZip% into %ManagedLibsDir%\ ...
   %UnzipTool% %VC90CrtZip% -d %ManagedLibsDir%
 )
+
+goto :eof
+
+rem --------------------------------------------------------------------------
+
+:templateLine
+
+set TemplateLine=%~1
+set OutputFile=%2
+
+for /f "tokens=1,2* delims=@" %%x in ("%TemplateLine%") do (
+  set BeforeVar=%%x
+  set VarName=%%y
+  set AfterVar=%%z
+)
+
+rem By default, output the template line as is (for the cases where there is
+rem no variable name or the name is unknown)
+set OutputLine=%TemplateLine%
+
+if "%VarName%" == "VERSION"  set VarValue=%GdalVersion:-=.%
+if "%VarName%" == "PLATFORM" set VarValue=%Bits%-bit Windows
+if "%VarName%" == "COMPILER" set VarValue=MSVC 2008
+
+if not "%VarValue%" == "" set OutputLine=%BeforeVar%%VarValue%%AfterVar%
+
+echo %OutputLine% >> %OutputFile%
 
 goto :eof
 
