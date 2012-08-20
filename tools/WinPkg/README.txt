@@ -1,7 +1,7 @@
 A collection of tools for downloading and unpacking software packages
 (i.e., zip files) on Windows systems.
 
-Version 1.2 contains:
+Version 1.3 contains:
 
   Landis.Tools.DownloadFile.exe -- LANDIS Download-File Tool 1.1.4589.32177
   checksum.exe                  -- Checksum Calculator (Jan 20, 2008)
@@ -9,6 +9,9 @@ Version 1.2 contains:
 
   getPackage.cmd                -- Windows command script that uses the
                                    three tools above
+
+Version 1.3 fixes a bug in the toolkit's internal "initialize.cmd"
+script.
 
 The toolkit is released in the organization shown in the "dist" folder.
 For each release, the "dist" folder is copied into the project's "tags"
