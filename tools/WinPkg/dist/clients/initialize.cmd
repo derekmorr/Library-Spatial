@@ -28,7 +28,7 @@ rem  Remove leading and trailing delimiters of svn keyword from the URL
 set ScriptURL=%ScriptURL:$HeadURL: =%
 set ScriptURL=%ScriptURL: $=%
 
-set ToolkitRootURL=%ScriptURL:/clients/get-tools.cmd=%
+set ToolkitRootURL=%ScriptURL:/clients/initialize.cmd=%
 set DownloadURL=%ToolkitRootURL%/download
 
 call :getFile checksum.exe
