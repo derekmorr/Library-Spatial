@@ -19,3 +19,5 @@ set LibraryPackage=%DownloadDir%\%LibraryFileName%
 set FileInPkg=Landis.SpatialModeling.dll
 
 call WinPkgTools\getPackage.cmd %LibraryUrl% %LibraryPackage% %LibrarySHA1% %FileInPkg%
+
+popd
