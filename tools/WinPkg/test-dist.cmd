@@ -13,8 +13,27 @@ set LibraryPackage=%TestDir%\%LibraryFileName%
 
 set UnpackedItem=Landis.SpatialModeling.dll
 
-if "%~1" == "--clean-pkg"  call :cleanPkg
-if "%~1" == "--clean-dist" call :cleanDist
+:processArgs
+
+if "%~1" == "" goto :getPkg
+if "%~1" == "--clean-pkg" (
+  call :cleanPkg
+  shift
+  goto :processArgs
+)
+if "%~1" == "--clean-dist" (
+  call :cleanDist
+  shift
+  goto :processArgs
+)
+
+echo Error: Unknown argument: "%~1"
+echo Usage: %~0 [--clean-dist] [--clean-pkg]
+exit /b 1
+
+rem  ------------------------------------------------------------------------
+
+:getPkg
 
 call %Toolkit%\getPackage.cmd %LibraryURL% "%LibraryPackage%" %ExpectedSHA1% "%UnpackedItem%"
 
