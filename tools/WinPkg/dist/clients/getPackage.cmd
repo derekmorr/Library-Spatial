@@ -8,10 +8,7 @@ call :initToolkit
 
 rem  If the directory where the package will be downloaded to doesn't exist,
 rem  make it.
-if not exist "%PackageDir%" (
-  echo Making directory %PackageDir% ...
-  mkdir "%PackageDir%"
-)
+call :ensureDirExists "%PackageDir%"
 
 rem  Download the package if it doesn't exist on the local filesystem.
 if exist "%PackagePath%" (
@@ -95,6 +92,17 @@ rem  Remove trailing backslash
 set ToolkitDir=%ToolkitDir:~0,-1%
 
 call "%ToolkitDir%\initialize.cmd"
+goto :eof
+
+rem -------------------------------------------------------------------------
+
+:ensureDirExists
+
+if not exist "%~1" (
+  echo Making directory %~1 ...
+  mkdir "%~1"
+)
+
 goto :eof
 
 rem -------------------------------------------------------------------------
