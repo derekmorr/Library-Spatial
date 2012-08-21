@@ -11,7 +11,7 @@ set ExpectedSHA1=4313ba2d477895803a84300f4d4a10a075f1e069
 set TestDir=test output
 set LibraryPackage=%TestDir%\%LibraryFileName%
 
-set UnpackedItem=Landis.SpatialModeling.dll
+set UnpackedItem=%TestDir%\contents\Landis.SpatialModeling.dll
 
 :processArgs
 
@@ -52,6 +52,10 @@ if exist "%LibraryPackage%" (
 for %%F in ("%TestDir%\*") do (
   echo Deleting %%F ...
   del "%%F"
+)
+for /d %%D in ("%TestDir%\*") do (
+  echo Deleting %%D\ ...
+  rmdir /s /q "%%D"
 )
 
 goto :eof

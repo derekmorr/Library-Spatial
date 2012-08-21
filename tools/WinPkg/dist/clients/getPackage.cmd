@@ -21,13 +21,15 @@ if exist "%PackagePath%" (
 )
 
 rem  Unzip the package file if the sentinel file or directory doesn't exist.
-if exist "%PackageDir%\%UnpackedItem%" (
+if exist "%UnpackedItem%" (
   echo %PackagePath% has already been unpacked.
 ) else (
-  pushd "%PackageDir%"
+  call :ensureDirExists "%DirForUnpacking%"
   echo Unpacking %PackagePath% ...
-  "%UnZipTool%" "%PackageName%"
-  popd
+  rem  The closing quote is deliberately left off the argument for the -d
+  rem  option below because of a bug in the unzip tool.  The bug includes
+  rem  the closing quote in the paths of files being extracted.
+  "%UnZipTool%" "%PackagePath%" -d "%DirForUnpacking%
 )
 goto :eof
 
@@ -62,6 +64,7 @@ if "%~4" == "" (
   goto usageError
 )
 set UnpackedItem=%~4
+set DirForUnpacking=%~dp4
 
 goto :eof
 
