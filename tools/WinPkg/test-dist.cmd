@@ -11,12 +11,12 @@ set ExpectedSHA1=4313ba2d477895803a84300f4d4a10a075f1e069
 set TestDir=test output
 set LibraryPackage=%TestDir%\%LibraryFileName%
 
-set UnpackedFile=Landis.SpatialModeling.dll
+set UnpackedItem=Landis.SpatialModeling.dll
 
 if "%~1" == "--clean-pkg"  call :cleanPkg
 if "%~1" == "--clean-dist" call :cleanDist
 
-call %Toolkit%\getPackage.cmd %LibraryURL% "%LibraryPackage%" %ExpectedSHA1% "%UnpackedFile%"
+call %Toolkit%\getPackage.cmd %LibraryURL% "%LibraryPackage%" %ExpectedSHA1% "%UnpackedItem%"
 
 goto :eof
 

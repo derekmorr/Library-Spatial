@@ -31,16 +31,16 @@ script will download the remaining tools into that external folder.
 
 The getPackage.cmd script takes 4 arguments:
 
-  getPackage.cmd PackageURL PackagePath ExpectedSHA1 UnpackedFile
+  getPackage.cmd PackageURL PackagePath ExpectedSHA1 UnpackedItem
 
 where:
 
   PackageURL   -- URL of the zip package to download
   PackagePath  -- Local path where zip file should be downloaded to
   ExpectedSHA1 -- SHA1 checksum for zip file
-  UnpackedFile -- A file in the zip file, which the script checks to
-                  if it exists on the local filesystem; if not, then
-                  the script unpacks the zip file
+  UnpackedItem -- A file or folder in the zip file, which the script
+                  checks to if it exists on the local filesystem; if
+                  not, then the script unpacks the zip file
 
 Continuing the example above, the configuration script can download,
 checksum, and unpack version 1.0 of the Foo library as follows:
@@ -49,4 +49,4 @@ checksum, and unpack version 1.0 of the Foo library as follows:
   set FooPkg=download\FooLib-1.0.zip
   set FooSHA1=da39a3ee5e6b4b0d3255bfef95601890afd80709
   set FooDLL=Foo.dll
-  call WinPkgTools\getPackage %FooUrl% %FooPkg% %FooSHA1% %FooDLL$
+  call WinPkgTools\getPackage %FooUrl% %FooPkg% %FooSHA1% %FooDLL%

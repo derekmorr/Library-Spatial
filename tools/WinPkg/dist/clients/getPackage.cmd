@@ -23,8 +23,8 @@ if exist "%PackagePath%" (
   if errorlevel 1 goto :eof
 )
 
-rem  Unzip the package file if the sentinel file doesn't exist.
-if exist "%PackageDir%\%UnpackedFile%" (
+rem  Unzip the package file if the sentinel file or directory doesn't exist.
+if exist "%PackageDir%\%UnpackedItem%" (
   echo %PackagePath% has already been unpacked.
 ) else (
   pushd "%PackageDir%"
@@ -61,10 +61,10 @@ if "%~3" == "" (
 set ExpectedSHA1=%~3
 
 if "%~4" == "" (
-  set ArgError=Missing UnpackedFile
+  set ArgError=Missing UnpackedItem
   goto usageError
 )
-set UnpackedFile=%~4
+set UnpackedItem=%~4
 
 goto :eof
 
@@ -73,7 +73,7 @@ rem -------------------------------------------------------------------------
 :usageError
 
 echo Error: %ArgError%
-echo Usage: %~nx0 PackageURL PackagePath ExpectedSHA1 UnpackedFile
+echo Usage: %~nx0 PackageURL PackagePath ExpectedSHA1 UnpackedItem
 
 goto :eof
 
