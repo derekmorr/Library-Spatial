@@ -32,8 +32,9 @@ all the remaining tools before LSML is fetched.
 
 The LSML-admin scripts also accept these other action arguments:
 
-  clean -- Remove all the files extracted from downloaded zip files
-  help  -- Display list of available action arguments
+  clean     -- Remove all the files extracted from downloaded zip files
+  distclean -- Same as "clean", plus remove all downloaded files
+  help      -- Display list of available action arguments
 
 The "clean" action can be used to implement a "clean" target or action
 for the application's project.

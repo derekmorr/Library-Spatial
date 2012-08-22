@@ -22,11 +22,18 @@ for /f "tokens=1,2" %%i in (version.txt) do (
   set LibrarySHA1=%%j
 )
 
-rem  Download the specific library version
+rem  Set environment variables about specific library version
 set LibraryFileName=LSML-%LibraryVer%.zip
 set LibraryURL=http://landis-spatial.googlecode.com/files/%LibraryFileName%
 set DownloadDir=download
 set LibraryPackage=%DownloadDir%\%LibraryFileName%
+
+if "%Action%" == "distclean" (
+  call :distclean
+  goto :exitScript
+)
+
+rem  Do "get" action -- download the specific library version
 
 set FileInPkg=Landis.SpatialModeling.dll
 
@@ -50,10 +57,11 @@ rem  ------------------------------------------------------------------------
 :processArgs
 
 set Action=
-if "%~1" == "get"   set Action=get
-if "%~1" == "clean" set Action=clean
-if "%~1" == "help"  set Action=help
-if "%~1" == ""      set Action=help
+if "%~1" == "get"       set Action=get
+if "%~1" == "clean"     set Action=clean
+if "%~1" == "distclean" set Action=distclean
+if "%~1" == "help"      set Action=help
+if "%~1" == ""          set Action=help
 
 if "%Action%" == "" (
   call :error unknown action "%~1"
@@ -85,9 +93,10 @@ rem  ------------------------------------------------------------------------
 
 echo Usage: %Script% [ACTION]
 echo where ACTION is:
-echo   get   -- download and unpack LSML
-echo   clean -- remove all unpacked files
-echo   help  -- display this message (default)
+echo   get       -- download and unpack LSML
+echo   clean     -- remove all unpacked files
+echo   distclean -- Same as "clean" action, plus remove all downloaded files
+echo   help      -- display this message (default)
 
 goto :eof
 
@@ -99,6 +108,22 @@ rem  Delete all the unpacked files
 
 for %%F in ("*.dll") do call :deleteFile "%%F"
 call :deleteFile README.txt
+
+goto :eof
+
+rem  ------------------------------------------------------------------------
+
+:distclean
+
+call :clean
+call :deleteFile %LibraryPackage%
+if exist %DownloadDir% (
+  rmdir /s /q %DownloadDir%
+  echo Deleted %DownloadDir%\
+)
+
+rem  Delete the files downloaded for WinPkgTools
+call WinPkgTools\clean.cmd
 
 goto :eof
 
