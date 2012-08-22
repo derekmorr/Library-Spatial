@@ -7,6 +7,10 @@ setlocal
 set Script=%~nx0
 call :processArgs %*
 if "%Action%" == "error" goto :exitScript
+if "%Action%" == "clean" (
+  call :clean
+  goto :exitScript
+)
 if "%Action%" == "help" (
   call :usage
   goto :exitScript
@@ -46,9 +50,10 @@ rem  ------------------------------------------------------------------------
 :processArgs
 
 set Action=
-if "%~1" == "get"  set Action=get
-if "%~1" == "help" set Action=help
-if "%~1" == ""     set Action=help
+if "%~1" == "get"   set Action=get
+if "%~1" == "clean" set Action=clean
+if "%~1" == "help"  set Action=help
+if "%~1" == ""      set Action=help
 
 if "%Action%" == "" (
   call :error unknown action "%~1"
@@ -80,9 +85,31 @@ rem  ------------------------------------------------------------------------
 
 echo Usage: %Script% [ACTION]
 echo where ACTION is:
-echo   get  -- download and unpack LSML
-echo   help -- display this message (default)
+echo   get   -- download and unpack LSML
+echo   clean -- remove all unpacked files
+echo   help  -- display this message (default)
 
+goto :eof
+
+rem  ------------------------------------------------------------------------
+
+:clean
+
+rem  Delete all the unpacked files
+
+for %%F in ("*.dll") do call :deleteFile "%%F"
+call :deleteFile README.txt
+
+goto :eof
+
+rem  ------------------------------------------------------------------------
+
+:deleteFile
+
+if exist "%~1" (
+  del "%~1"
+  echo Deleted %~1
+)
 goto :eof
 
 rem  ------------------------------------------------------------------------
