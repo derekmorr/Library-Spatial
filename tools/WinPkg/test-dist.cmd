@@ -66,15 +66,5 @@ rem  ------------------------------------------------------------------------
 
 rem  Remove the files that are downloaded during the toolkit's initialization.
 
-for %%F in ("%Toolkit%\*.txt") do (
-  echo Deleting %%F ...
-  del "%%F"
-)
-for %%F in ("%Toolkit%\*.exe") do (
-  if not "%%~nF" == "Landis.Tools.DownloadFile" (
-    echo Deleting %%F ...
-    del "%%F"
-  )
-)
-
+call "%Toolkit%\clean.cmd"
 goto :eof

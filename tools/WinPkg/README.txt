@@ -1,7 +1,7 @@
 A collection of tools for downloading and unpacking software packages
 (i.e., zip files) on Windows systems.
 
-Version 1.4 contains:
+Version 1.5 contains:
 
   Landis.Tools.DownloadFile.exe -- LANDIS Download-File Tool 1.1.4589.32177
   checksum.exe                  -- Checksum Calculator (Jan 20, 2008)
@@ -9,6 +9,9 @@ Version 1.4 contains:
 
   getPackage.cmd                -- Windows command script that uses the
                                    three tools above
+  clean.cmd                     -- Windows command script that removes all
+                                   tools and licenses downloaded during the
+                                   the toolkit's initialization
 
 The toolkit is released in the organization shown in the "dist" folder.
 For each release, the "dist" folder is copied into the project's "tags"
@@ -18,7 +21,8 @@ number.
 A client project uses a svn:externals property to fetch the "clients"
 folder of a particular version.  For example,
 
-  http://landis-spatial.googlecode.com/svn/tags/tools/WinPkg/2.3/clients WinPkgTools
+  Path:  WinPkgTools
+  URL:   http://landis-spatial.googlecode.com/svn/tags/tools/WinPkg/2.3/clients
 
 Then, if the client project has been checked out on a Windows system,
 the project's configuration script can use the getPackage.cmd script
@@ -50,6 +54,13 @@ checksum, and unpack version 1.0 of the Foo library as follows:
 
 
 Revision History
+
+  v1.5 (Aug 22, 2012)
+
+    *  Added a clean.cmd script, which removes all the files that are
+       downloaded when the toolkit is initialized.  It can be used by
+       a client project to implement a "clean" or "distclean" target
+       or action.
 
   v1.4 (Aug 21, 2012)
 
