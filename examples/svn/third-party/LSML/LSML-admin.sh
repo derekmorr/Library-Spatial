@@ -1,48 +1,161 @@
 #! /bin/sh
 
-#  Run this script in the directory where it's located
-scriptDir=`dirname $0`
-cd $scriptDir
+# ----------------------------------------------------------------------------
 
-#  Read LSML version # and the SHA1 checksum for that version
-LibraryVer=`awk '{print $1}' version.txt`
-LibrarySHA1=`awk '{print $2}' version.txt`
+function printUsage()
+{
+  cat <<EOT
+Usage: $ScriptName [ACTION]
+where ACTION is:
+   get       -- download and unpack LSML
+   clean     -- remove all unpacked files
+   distclean -- Same as "clean" action, plus remove all downloaded files
+   help      -- display this message (default)
+EOT
+}
 
-#  Download the specific library version
-LibraryFileName=LSML-${LibraryVer}.zip
-LibraryURL=http://landis-spatial.googlecode.com/files/${LibraryFileName}
-DownloadDir=download
-LibraryPackage=${DownloadDir}/${LibraryFileName}
-if [ ! -x $DownloadDir ] ; then
-  echo Making directory "$DownloadDir" ...
-  mkdir $DownloadDir
-fi
-if [ -f $LibraryPackage ] ; then
-  echo $LibraryFileName already downloaded.
-else
-  echo Downloading $LibraryFileName ...
-  curl --progress-bar --url $LibraryURL -o $LibraryPackage
-  
-  echo Verifying checksum of $LibraryPackage ...
-  if [ `uname` = Darwin ] ; then
-    ComputedSHA1=`openssl sha1 $LibraryPackage | sed 's/^.*= //' `
+# ----------------------------------------------------------------------------
+
+function processArgs()
+{
+  Action=
+  if [ "$1" = "" ] ; then
+    Action=help
   else
-    ComputedSHA1=`sha1sum $LibraryPackage | sed 's/ .*//' `
+    case $1 in
+      get | clean | distclean | help ) Action=$1;;
+      *) usageError "unknown action \"$1\"";;
+    esac
   fi
-  if [ "$ComputedSHA1" != "$LibrarySHA1" ] ; then
-    echo ERROR: Invalid checksum
-    echo Expected SHA1 = $LibrarySHA1
-    echo Computed SHA1 = $ComputedSHA1
-    exit 1
+  if [ "$3" != "" ] ; then
+    usageError "extra arguments after \"$1\" action: $2 ..."
   fi
+  if [ "$2" != "" ] ; then
+    usageError "extra argument after \"$1\" action: $2"
+  fi
+}
+
+# ----------------------------------------------------------------------------
+
+function usageError()
+{
+  printf "Error: $1\n"
+  printUsage
+  exit 1
+}
+
+# ----------------------------------------------------------------------------
+
+function setEnvVars()
+{
+  #  Read LSML version # and the SHA1 checksum for that version
+  LibraryVer=`awk '{print $1}' version.txt`
+  LibrarySHA1=`awk '{print $2}' version.txt`
+
+  #  Set environment variables for the specific library version
+  LibraryFileName=LSML-${LibraryVer}.zip
+  LibraryURL=http://landis-spatial.googlecode.com/files/${LibraryFileName}
+  DownloadDir=download
+  LibraryPackage=${DownloadDir}/${LibraryFileName}
+}
+
+# ----------------------------------------------------------------------------
+
+function getLibrary()
+{
+  if [ ! -x $DownloadDir ] ; then
+    echo Making directory "$DownloadDir" ...
+    mkdir $DownloadDir
+  fi
+  if [ -f $LibraryPackage ] ; then
+    echo $LibraryPackage already downloaded.
+  else
+    echo Downloading $LibraryPackage ...
+    curl --progress-bar --url $LibraryURL -o $LibraryPackage
+  
+    echo Verifying checksum of $LibraryPackage ...
+    if [ `uname` = Darwin ] ; then
+      ComputedSHA1=`openssl sha1 $LibraryPackage | sed 's/^.*= //' `
+    else
+      ComputedSHA1=`sha1sum $LibraryPackage | sed 's/ .*//' `
+    fi
+    if [ "$ComputedSHA1" != "$LibrarySHA1" ] ; then
+      echo ERROR: Invalid checksum
+      echo Expected SHA1 = $LibrarySHA1
+      echo Computed SHA1 = $ComputedSHA1
+      exit 1
+    fi
+  fi
+
+  #  Unpack the library if not done already
+  if [ -f Landis.SpatialModeling.dll ] ; then
+    echo $LibraryPackage has already been unpacked.
+  else
+    echo Unpacking $LibraryPackage ...
+    unzip $LibraryPackage
+  fi
+}
+
+# ----------------------------------------------------------------------------
+
+function cleanFiles()
+{
+  for file in *.dll README.txt ; do
+    deleteFile $file
+  done
+}
+
+# ----------------------------------------------------------------------------
+
+function distClean()
+{
+  cleanFiles
+  deleteFile $LibraryPackage
+  if [ -d $DownloadDir ] ; then
+    rm -fR $DownloadDir
+    echo Deleted $DownloadDir/
+  fi
+}
+
+# ----------------------------------------------------------------------------
+
+function deleteFile()
+{
+  if [ -f $1 ] ; then
+    rm $1
+    echo Deleted $1
+  fi
+}
+
+# ----------------------------------------------------------------------------
+
+ScriptName=`basename $0`
+processArgs $*
+if [ "$Action" = "help" ] ; then
+  printUsage
+  exit 0
 fi
 
-#  Unpack the library if not done already
-if [ -f Landis.SpatialModeling.dll ] ; then
-  echo Library assemblies have already been unpacked.
+#  Do the action in the directory where this script is located
+OriginalWD=`pwd`
+ScriptDir=`dirname $0`
+cd $ScriptDir
+if [ $OriginalWD == `pwd` ] ; then
+  OriginalWD=
 else
-  echo Unpacking $LibraryPackage ...
-  unzip $LibraryPackage
+  echo now in `pwd`
 fi
 
+setEnvVars
+
+case $Action in
+  get)        getLibrary;;
+  clean)      cleanFiles;;
+  distclean)  distClean;;
+esac
+
+if [ "$OriginalWD" != "" ] ; then
+  cd $OriginalWD
+  echo now in `pwd`
+fi
 exit 0
