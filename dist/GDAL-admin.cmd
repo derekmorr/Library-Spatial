@@ -1,14 +1,15 @@
 @echo off
 setlocal enableDelayedExpansion
 
-rem  Ensure WinPkgTools have been initialized before calling this script.
+rem  Ensure all needed environment variables have been initialized.
 set MissingVar=no
 call :checkVar WinPkgTools
 call :checkVar DownloadTool
+call :checkVar GdalAdmin_VersionFile
 if "%MissingVar%" == "yes" exit /b 1
 
 rem  Read GDAL version #
-for /f %%v in (version.txt) do set GdalVersion=%%v
+for /f %%v in (%GdalAdmin_VersionFile%) do set GdalVersion=%%v
 
 rem  The list of packages available for the specified GDAL version
 set ProjectUrl=http://landis-spatial.googlecode.com/
