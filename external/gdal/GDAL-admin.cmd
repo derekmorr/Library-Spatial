@@ -2,4 +2,4 @@
 setlocal
 
 call ..\..\tools\WinPkg\dist\clients\initialize.cmd
-call ..\..\dist\get-GDAL-Csharp.cmd %*
+call ..\..\dist\GDAL-admin.cmd %*
