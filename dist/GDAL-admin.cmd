@@ -1,15 +1,11 @@
 @echo off
-setlocal
+setlocal enableDelayedExpansion
 
 rem  Ensure WinPkgTools have been initialized before calling this script.
+set MissingVar=no
 call :checkVar WinPkgTools
-if errorlevel 1 (
-  exit /b 1
-)
 call :checkVar DownloadTool
-if errorlevel 1 (
-  exit /b 1
-)
+if "%MissingVar%" == "yes" exit /b 1
 
 rem  Read GDAL version #
 for /f %%v in (version.txt) do set GdalVersion=%%v
@@ -46,13 +42,11 @@ rem  ------------------------------------------------------------------------
 
 :checkVar
 
-setlocal enableDelayedExpansion
-
 set VarName=%1
 for /f %%V in ('echo %VarName%') do set VarValue=!%%V!
 if "%VarValue%" == "" (
   echo Error: The environment variable %VarName% is not set.
-  exit /b 1
+  set MissingVar=yes
 )
 goto :eof
 
