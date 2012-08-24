@@ -6,6 +6,7 @@ set MissingVar=no
 call :checkVar WinPkgTools
 call :checkVar DownloadTool
 call :checkVar GdalAdmin_VersionFile
+call :checkVar GdalAdmin_InstallDir
 if "%MissingVar%" == "yes" exit /b 1
 
 rem  Read GDAL version #
@@ -32,8 +33,8 @@ if "%PackageSHA1%" == "" goto :noPackage
 rem  Fetch the binary package for the platform
 set PackageName=gdal-%GdalVersion:.=-%-csharp-%Platform%.zip
 set PackageUrl=%ProjectUrl%/files/%PackageName%
-set PackagePath=GDAL\%PackageName%
-set DirInPkg=GDAL\managed
+set PackagePath=%GdalAdmin_InstallDir%\%PackageName%
+set DirInPkg=%GdalAdmin_InstallDir%\managed
 
 call "%WinPkgTools%\getPackage" %PackageUrl% %PackagePath% %PackageSHA1% %DirInPkg%
 
@@ -87,6 +88,10 @@ echo You must either:
 echo.
 echo   A) install pre-compiled GDAL libraries and their C# bindings, or
 echo   B) build the libraries and C# bindings manually.
+echo.
+echo In either case, the C# bindings must be in installed in this folder:
+echo.
+echo   %CD%\%GdalAdmin_InstallDir%\managed\
 
 exit /b 1
 
