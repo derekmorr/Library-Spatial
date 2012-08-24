@@ -16,6 +16,7 @@ if "%Action%" == "help" (
   call :usage
   goto :exitScript
 )
+rem  Action == get or update
 
 rem  Read GDAL version #
 for /f %%v in (%GdalAdmin_VersionFile%) do set GdalVersion=%%v
@@ -24,7 +25,7 @@ rem  The list of packages available for the specified GDAL version
 set ProjectUrl=http://landis-spatial.googlecode.com/
 set PackageList=gdal-%GdalVersion%-csharp.txt
 if not exist %PackageList% set GetPackageList=yes
-if "%~1" == "--update-pkg-list" set GetPackageList=yes
+if "%Action%" == "update" set GetPackageList=yes
 if "%GetPackageList%" == "yes" call :getPkgList
 
 rem  Determine the platform (win32 or win64)
@@ -62,6 +63,7 @@ rem  ------------------------------------------------------------------------
 
 set Action=
 if "%~1" == "get"       set Action=get
+if "%~1" == "update"    set Action=update
 if "%~1" == "help"      set Action=help
 if "%~1" == ""          set Action=help
 
@@ -96,6 +98,8 @@ rem  ------------------------------------------------------------------------
 echo Usage: %Script% [ACTION]
 echo where ACTION is:
 echo   get       -- download and unpack GDAL libraries and C# bindings
+echo   update    -- update the local list of available GDAL packages with the
+echo                current list in the svn repos, then do the "get" action
 echo   help      -- display this message (default)
 
 goto :eof
