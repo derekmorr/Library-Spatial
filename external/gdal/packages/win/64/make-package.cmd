@@ -1,3 +1,3 @@
 @echo off
 
-call ..\make-package.cmd 64
+call ..\_make-package.cmd 64

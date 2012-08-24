@@ -1,6 +1,10 @@
 @echo off
 
 setlocal
+if "%~1" == "" (
+  echo Error: The script %~nx0 called without bits argument
+  exit /b 1
+)
 set Bits=%1
 
 rem Assume working directory is {ProjectRoot}\external\gdal\packages\win\{#ofBits}
