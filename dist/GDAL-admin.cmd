@@ -9,6 +9,14 @@ call :checkVar GdalAdmin_VersionFile
 call :checkVar GdalAdmin_InstallDir
 if "%MissingVar%" == "yes" exit /b 1
 
+set Script=%~nx0
+call :processArgs %*
+if "%Action%" == "error" goto :exitScript
+if "%Action%" == "help" (
+  call :usage
+  goto :exitScript
+)
+
 rem  Read GDAL version #
 for /f %%v in (%GdalAdmin_VersionFile%) do set GdalVersion=%%v
 
@@ -37,6 +45,58 @@ set PackagePath=%GdalAdmin_InstallDir%\%PackageName%
 set DirInPkg=%GdalAdmin_InstallDir%\managed
 
 call "%WinPkgTools%\getPackage" %PackageUrl% %PackagePath% %PackageSHA1% %DirInPkg%
+
+
+:exitScript
+
+if "%Action%" == "error" (
+  set ExitCode=1
+) else (
+  set ExitCode=0
+)
+exit /b %ExitCode%
+
+rem  ------------------------------------------------------------------------
+
+:processArgs
+
+set Action=
+if "%~1" == "get"       set Action=get
+if "%~1" == "help"      set Action=help
+if "%~1" == ""          set Action=help
+
+if "%Action%" == "" (
+  call :error unknown action "%~1"
+  goto :eof
+)
+if not "%~3" == "" (
+  call :error extra arguments after "%~1" action: %2 ...
+  goto :eof
+)
+if not "%~2" == "" (
+  call :error extra argument after "%~1" action: %2
+  goto :eof
+)
+
+goto :eof
+
+rem  ------------------------------------------------------------------------
+
+:error
+
+echo Error: %*
+call :usage
+set Action=error
+goto :eof
+
+rem  ------------------------------------------------------------------------
+
+:usage
+
+echo Usage: %Script% [ACTION]
+echo where ACTION is:
+echo   get       -- download and unpack GDAL libraries and C# bindings
+echo   help      -- display this message (default)
 
 goto :eof
 
