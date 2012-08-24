@@ -1,22 +1,9 @@
 @echo off
 
 setlocal
-if "%~1" == "" (
-  echo Error: The script %~nx0 called without bits argument
-  exit /b 1
-)
-set Bits=%1
-
-rem Assume working directory is {ProjectRoot}\external\gdal\packages\win\{#ofBits}
-set GdalDir=..\..\..
-set ExternalDir=%GdalDir%\..
-set InfoZipDir=%ExternalDir%\Info-ZIP
-set ProjectRoot=%ExternalDir%\..
-
-rem Get GDAL version in "#-#-#" format
-for /f %%v in (%GdalDir%\version.txt) do set GdalVersion=%%v
-set GdalVersion=%GdalVersion:.=-%
-echo GDAL version %GdalVersion%
+set Script=%~nx0
+call %~dp0\_package-util.cmd %*
+if errorlevel 1 exit /b 1
 
 rem Get the MapServer version that's distributed with that GDAL version
 rem at www.gisinternals.com
@@ -39,10 +26,8 @@ set DownloadDir=download
 set DownloadedPackage=%DownloadDir%\%GdalPackageName%
 
 set DistributionDir=dist
-set ZipFile=gdal-%GdalVersion%-csharp-win%Bits%.zip
 
 set DownloadTool=%ProjectRoot%\tools\current\Landis.Tools.DownloadFile.exe
-set UnzipTool=%InfoZipDir%\unzip.exe
 set ZipTool=%InfoZipDir%\zip.exe
 
 call :download
