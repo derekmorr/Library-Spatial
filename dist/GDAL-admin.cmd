@@ -2,12 +2,12 @@
 setlocal
 
 rem  Ensure WinPkgTools have been initialized before calling this script.
-if "%WinPkgTools%" == "" (
-  call :varError WinPkgTools
+call :checkVar WinPkgTools
+if errorlevel 1 (
   exit /b 1
 )
-if "%DownloadTool%" == "" (
-  call :varError DownloadTool
+call :checkVar DownloadTool
+if errorlevel 1 (
   exit /b 1
 )
 
@@ -46,8 +46,14 @@ rem  ------------------------------------------------------------------------
 
 :checkVar
 
-echo Error: The environment variable %1 is not set.
-echo        The WinPkgTools\initialize.cmd script must be called first.
+setlocal enableDelayedExpansion
+
+set VarName=%1
+for /f %%V in ('echo %VarName%') do set VarValue=!%%V!
+if "%VarValue%" == "" (
+  echo Error: The environment variable %VarName% is not set.
+  exit /b 1
+)
 goto :eof
 
 rem  ------------------------------------------------------------------------
