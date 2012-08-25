@@ -122,18 +122,22 @@ if [ "$PackageSHA1" = "" ] ; then
 fi
 
 #  Download the binary package for the platform
-PackageName=gdal-${GdalVersion/./-}-csharp-${Platform}.tgz
+PackageName=gdal-${GdalVersion//./-}-csharp-${Platform}.tgz
 PackageUrl=${ProjectUrl}files/${PackageName}
 PackagePath=$GdalAdmin_InstallDir/${PackageName}
-if [ -f $PackageName ] ; then
+if [ -f $PackagePath ] ; then
   echo $PackageName already downloaded.
 else
-  downloadFile $PackageUrl $PackageName
-  echo Verifying checksum of $PackageName ...
+  if [ ! -d $GdalAdmin_InstallDir ] ; then
+    mkdir $GdalAdmin_InstallDir
+    echo Created directory $GdalAdmin_InstallDir/
+  fi
+  downloadFile $PackageUrl $PackagePath
+  echo Verifying checksum of $PackagePath ...
   if [ `uname` = Darwin ] ; then
-    ComputedSHA1=`openssl sha1 $PackageName | sed 's/^.*= //' `
+    ComputedSHA1=`openssl sha1 $PackagePath | sed 's/^.*= //' `
   else
-    ComputedSHA1=`sha1sum $PackageName | sed 's/ .*//' `
+    ComputedSHA1=`sha1sum $PackagePath | sed 's/ .*//' `
   fi
   if [ "$ComputedSHA1" != "$PackageSHA1" ] ; then
     echo ERROR: Invalid checksum
@@ -144,11 +148,11 @@ else
 fi
 
 #  Unpack the package if not done already
-if [ -f managed/gdal_csharp.dll ] ; then
+if [ -d $GdalAdmin_InstallDir/managed ] ; then
   printf "GDAL libraries and C# bindings have already been unpacked.\n"
 else
-  echo Unpacking $PackageName ...
-  tar -xvzf $PackageName
+  echo Unpacking $PackagePath ...
+  tar -xv -C $GdalAdmin_InstallDir -zf $PackagePath
 fi
 
 exit 0
