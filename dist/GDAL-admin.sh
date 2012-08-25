@@ -59,6 +59,17 @@ function downloadFile()
 
 #-----------------------------------------------------------------------------
 
+MissingVar=no
+for VarName in GdalAdmin_VersionFile GdalAdmin_InstallDir ; do
+  if [ "${!VarName}" = "" ] ; then
+    printf "Error: The environment variable $VarName is not set.\n"
+    MissingVar=yes
+  fi
+done
+if [ "$MissingVar" = "yes" ] ; then
+  exit 1
+fi
+
 ScriptName=`basename $0`
 processArgs $*
 if [ "$Action" = "help" ] ; then
@@ -67,7 +78,7 @@ if [ "$Action" = "help" ] ; then
 fi
 
 #  Read GDAL version #
-GdalVersion=`awk '{print $1}' version.txt`
+GdalVersion=`awk '{print $1}' $GdalAdmin_VersionFile`
 echo This version of LSML uses GDAL ${GdalVersion}
 
 #  The list of packages available for the specified GDAL version
@@ -110,7 +121,7 @@ fi
 #  Download the binary package for the platform
 PackageName=gdal-${GdalVersion/./-}-csharp-${Platform}.tgz
 PackageUrl=${ProjectUrl}files/${PackageName}
-PackagePath=GDAL/${PackageName}
+PackagePath=$GdalAdmin_InstallDir/${PackageName}
 if [ -f $PackageName ] ; then
   echo $PackageName already downloaded.
 else
