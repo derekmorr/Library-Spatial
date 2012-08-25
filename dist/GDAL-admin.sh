@@ -10,6 +10,7 @@ where ACTION is:
    get       -- download and unpack GDAL libraries and C# bindings
    update    -- update the local list of available GDAL packages with the
                 current list in the svn repos, then do the "get" action
+   clean     -- remove all unpacked files
    help      -- display this message (default)
 EOT
 }
@@ -23,7 +24,7 @@ function processArgs()
     Action=help
   else
     case $1 in
-      get | update | help ) Action=$1;;
+      get | update | clean | help ) Action=$1;;
       *) usageError "unknown action \"$1\"";;
     esac
   fi
@@ -61,6 +62,37 @@ function downloadFile()
 
 #-----------------------------------------------------------------------------
 
+# Remove all files that are unpacked from the GDAL package
+
+function cleanFiles()
+{
+  deleteFile $GdalAdmin_InstallDir/README.txt
+  deleteDir  $GdalAdmin_InstallDir/managed
+  deleteDir  $GdalAdmin_InstallDir/native
+}
+
+#-----------------------------------------------------------------------------
+
+function deleteFile()
+{
+  if [ -f $1 ] ; then
+    rm -f $1
+    echo Deleted $1
+  fi
+}
+
+#-----------------------------------------------------------------------------
+
+function deleteDir()
+{
+  if [ -d $1 ] ; then
+    rm -fR $1
+    echo Deleted $1/
+  fi
+}
+
+#-----------------------------------------------------------------------------
+
 MissingVar=no
 for VarName in GdalAdmin_VersionFile GdalAdmin_InstallDir ; do
   if [ "${!VarName}" = "" ] ; then
@@ -74,10 +106,10 @@ fi
 
 ScriptName=`basename $0`
 processArgs $*
-if [ "$Action" = "help" ] ; then
-  printUsage
-  exit 0
-fi
+case $Action in
+  clean)  cleanFiles ; exit 0 ;;
+  help)   printUsage ; exit 0 ;;
+esac
 #  $Action == get or update
 
 #  Read GDAL version #
