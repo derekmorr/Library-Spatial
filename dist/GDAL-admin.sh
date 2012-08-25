@@ -8,6 +8,8 @@ function printUsage()
 Usage: $ScriptName [ACTION]
 where ACTION is:
    get       -- download and unpack GDAL libraries and C# bindings
+   update    -- update the local list of available GDAL packages with the
+                current list in the svn repos, then do the "get" action
    help      -- display this message (default)
 EOT
 }
@@ -21,7 +23,7 @@ function processArgs()
     Action=help
   else
     case $1 in
-      get | help ) Action=$1;;
+      get | update | help ) Action=$1;;
       *) usageError "unknown action \"$1\"";;
     esac
   fi
@@ -76,6 +78,7 @@ if [ "$Action" = "help" ] ; then
   printUsage
   exit 0
 fi
+#  $Action == get or update
 
 #  Read GDAL version #
 GdalVersion=`awk '{print $1}' $GdalAdmin_VersionFile`
@@ -88,7 +91,7 @@ GetPackageList=no
 if [ ! -f $PackageList ] ; then
   GetPackageList=yes
 fi
-if [ "$1" = "--update-pkg-list" ]  ; then
+if [ "$Action" = "update" ]  ; then
   GetPackageList=yes
 fi
 if [ "${GetPackageList}" = "yes" ] ; then
