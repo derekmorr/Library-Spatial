@@ -28,13 +28,19 @@ for /f %%v in (%GdalAdmin_VersionFile%) do set GdalVersion=%%v
 rem  The list of packages available for the specified GDAL version
 set ProjectUrl=http://landis-spatial.googlecode.com/
 set PackageList=gdal-%GdalVersion%-csharp.txt
-if not exist %PackageList% set GetPackageList=yes
-if "%Action%" == "update" set GetPackageList=yes
-if "%GetPackageList%" == "yes" call :getPkgList
 
 rem  Determine the platform (win32 or win64)
 call :getPlatform
 echo Platform = %Platform%
+
+rem  The binary package for the platform
+set PackageName=gdal-%GdalVersion:.=-%-csharp-%Platform%.zip
+set PackagePath=%GdalAdmin_InstallDir%\%PackageName%
+
+rem  Fetch the list of available packages
+if not exist %PackageList% set GetPackageList=yes
+if "%Action%" == "update" set GetPackageList=yes
+if "%GetPackageList%" == "yes" call :getPkgList
 
 rem  Search for the platform in the package list
 set PackageSHA1=
@@ -44,9 +50,7 @@ for /f "tokens=1,2" %%x in (%PackageList%) do (
 if "%PackageSHA1%" == "" goto :noPackage
 
 rem  Fetch the binary package for the platform
-set PackageName=gdal-%GdalVersion:.=-%-csharp-%Platform%.zip
 set PackageUrl=%ProjectUrl%/files/%PackageName%
-set PackagePath=%GdalAdmin_InstallDir%\%PackageName%
 set DirInPkg=%GdalAdmin_InstallDir%\managed
 
 call "%WinPkgTools%\getPackage" %PackageUrl% %PackagePath% %PackageSHA1% %DirInPkg%
