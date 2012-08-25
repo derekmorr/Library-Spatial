@@ -1,5 +1,47 @@
 #! /bin/sh
 
+# ----------------------------------------------------------------------------
+
+function printUsage()
+{
+  cat <<EOT
+Usage: $ScriptName [ACTION]
+where ACTION is:
+   get       -- download and unpack GDAL libraries and C# bindings
+   help      -- display this message (default)
+EOT
+}
+
+# ----------------------------------------------------------------------------
+
+function processArgs()
+{
+  Action=
+  if [ "$1" = "" ] ; then
+    Action=help
+  else
+    case $1 in
+      get | help ) Action=$1;;
+      *) usageError "unknown action \"$1\"";;
+    esac
+  fi
+  if [ "$3" != "" ] ; then
+    usageError "extra arguments after \"$1\" action: $2 ..."
+  fi
+  if [ "$2" != "" ] ; then
+    usageError "extra argument after \"$1\" action: $2"
+  fi
+}
+
+# ----------------------------------------------------------------------------
+
+function usageError()
+{
+  printf "Error: $1\n"
+  printUsage
+  exit 1
+}
+
 #-----------------------------------------------------------------------------
 
 # A function for downloading a file from a URL to a local path
@@ -17,10 +59,12 @@ function downloadFile()
 
 #-----------------------------------------------------------------------------
 
-#  Run this script in the directory where it's located
-scriptDir=`dirname $0`
-cd $scriptDir
-echo pwd = `pwd`
+ScriptName=`basename $0`
+processArgs $*
+if [ "$Action" = "help" ] ; then
+  printUsage
+  exit 0
+fi
 
 #  Read GDAL version #
 GdalVersion=`awk '{print $1}' version.txt`
