@@ -103,7 +103,6 @@ echo Platform = ${Platform}
 
 #  Search for the platform in the package list
 PackageSHA1=`fgrep $Platform $PackageList | awk '{print $2}' `
-PackageSHA1=foo
 if [ "$PackageSHA1" = "" ] ; then
   cat <<-HERE
 	No GDAL package for platform "$Platform" is available at the web site:
@@ -112,8 +111,12 @@ if [ "$PackageSHA1" = "" ] ; then
 
 	You must either:
 
-	   A) install pre-compiled GDAL libraries and their C# bindings, or
+	   A) obtain pre-compiled GDAL libraries and their C# bindings, or
 	   B) build the libraries and C# bindings manually.
+
+	In either case, the C# bindings must be installed in this folder:
+
+	  `pwd`/$GdalAdmin_InstallDir/managed/
 	HERE
   exit 1
 fi
