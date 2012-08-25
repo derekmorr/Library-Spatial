@@ -160,6 +160,16 @@ echo This version of LSML uses GDAL ${GdalVersion}
 #  The list of packages available for the specified GDAL version
 ProjectUrl=http://landis-spatial.googlecode.com/
 PackageList=gdal-${GdalVersion}-csharp.txt
+
+#  Determine the platform
+getPlatform
+echo Platform = ${Platform}
+
+#  The binary package for the platform
+PackageName=gdal-${GdalVersion//./-}-csharp-${Platform}.tgz
+PackagePath=$GdalAdmin_InstallDir/${PackageName}
+
+#  Fetch the list of available packages
 GetPackageList=no
 if [ ! -f $PackageList ] ; then
   GetPackageList=yes
@@ -171,10 +181,6 @@ if [ "${GetPackageList}" = "yes" ] ; then
   getPkgList
 fi
 
-#  Determine the platform
-getPlatform
-echo Platform = ${Platform}
-
 #  Search for the platform in the package list
 PackageSHA1=`fgrep $Platform $PackageList | awk '{print $2}' `
 if [ "$PackageSHA1" = "" ] ; then
@@ -182,11 +188,9 @@ if [ "$PackageSHA1" = "" ] ; then
 fi
 
 #  Download the binary package for the platform
-PackageName=gdal-${GdalVersion//./-}-csharp-${Platform}.tgz
 PackageUrl=${ProjectUrl}files/${PackageName}
-PackagePath=$GdalAdmin_InstallDir/${PackageName}
 if [ -f $PackagePath ] ; then
-  echo $PackageName already downloaded.
+  echo $PackagePath already downloaded.
 else
   if [ ! -d $GdalAdmin_InstallDir ] ; then
     mkdir $GdalAdmin_InstallDir
