@@ -20,7 +20,7 @@ if "%Action%" == "help" (
   call :usage
   goto :exitScript
 )
-rem  Action == get or update
+rem  Action == get, update or distclean
 
 rem  Read GDAL version #
 for /f %%v in (%GdalAdmin_VersionFile%) do set GdalVersion=%%v
@@ -36,6 +36,13 @@ echo Platform = %Platform%
 rem  The binary package for the platform
 set PackageName=gdal-%GdalVersion:.=-%-csharp-%Platform%.zip
 set PackagePath=%GdalAdmin_InstallDir%\%PackageName%
+
+if "%Action%" == "distclean" (
+  call :distclean
+  goto :exitScript
+)
+
+rem  Action == get or update
 
 rem  Fetch the list of available packages
 if not exist %PackageList% set GetPackageList=yes
@@ -73,6 +80,7 @@ set Action=
 if "%~1" == "get"       set Action=get
 if "%~1" == "update"    set Action=update
 if "%~1" == "clean"     set Action=clean
+if "%~1" == "distclean" set Action=distclean
 if "%~1" == "help"      set Action=help
 if "%~1" == ""          set Action=help
 
@@ -110,6 +118,7 @@ echo   get       -- download and unpack GDAL libraries and C# bindings
 echo   update    -- update the local list of available GDAL packages with the
 echo                current list in the svn repos, then do the "get" action
 echo   clean     -- remove all unpacked files
+echo   distclean -- Same as "clean" action, plus remove all downloaded files
 echo   help      -- display this message (default)
 
 goto :eof
@@ -178,6 +187,20 @@ rem  Delete all the unpacked files
 call :deleteFile %GdalAdmin_InstallDir%\README.txt
 call :deleteDir  %GdalAdmin_InstallDir%\managed
 call :deleteDir  %GdalAdmin_InstallDir%\native
+
+goto :eof
+
+rem  ------------------------------------------------------------------------
+
+:distclean
+
+call :clean
+
+rem  Delete downloaded files and the directory where they were put
+
+call :deleteFile %PackageList%
+call :deleteFile %PackagePath%
+call :deleteDir  %GdalAdmin_InstallDir%
 
 goto :eof
 
