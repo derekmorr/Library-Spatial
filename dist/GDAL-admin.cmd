@@ -12,6 +12,10 @@ if "%MissingVar%" == "yes" exit /b 1
 set Script=%~nx0
 call :processArgs %*
 if "%Action%" == "error" goto :exitScript
+if "%Action%" == "clean" (
+  call :clean
+  goto :exitScript
+)
 if "%Action%" == "help" (
   call :usage
   goto :exitScript
@@ -64,6 +68,7 @@ rem  ------------------------------------------------------------------------
 set Action=
 if "%~1" == "get"       set Action=get
 if "%~1" == "update"    set Action=update
+if "%~1" == "clean"     set Action=clean
 if "%~1" == "help"      set Action=help
 if "%~1" == ""          set Action=help
 
@@ -100,6 +105,7 @@ echo where ACTION is:
 echo   get       -- download and unpack GDAL libraries and C# bindings
 echo   update    -- update the local list of available GDAL packages with the
 echo                current list in the svn repos, then do the "get" action
+echo   clean     -- remove all unpacked files
 echo   help      -- display this message (default)
 
 goto :eof
@@ -150,7 +156,7 @@ echo   %ProjectUrl%
 echo.
 echo You must either:
 echo.
-echo   A) install pre-compiled GDAL libraries and their C# bindings, or
+echo   A) obtain pre-compiled GDAL libraries and their C# bindings, or
 echo   B) build the libraries and C# bindings manually.
 echo.
 echo In either case, the C# bindings must be in installed in this folder:
@@ -158,5 +164,37 @@ echo.
 echo   %CD%\%GdalAdmin_InstallDir%\managed\
 
 exit /b 1
+
+rem  ------------------------------------------------------------------------
+
+:clean
+
+rem  Delete all the unpacked files
+
+call :deleteFile %GdalAdmin_InstallDir%\README.txt
+call :deleteDir  %GdalAdmin_InstallDir%\managed
+call :deleteDir  %GdalAdmin_InstallDir%\native
+
+goto :eof
+
+rem  ------------------------------------------------------------------------
+
+:deleteFile
+
+if exist "%~1" (
+  del "%~1"
+  echo Deleted %~1
+)
+goto :eof
+
+rem  ------------------------------------------------------------------------
+
+:deleteDir
+
+if exist "%~1" (
+  rmdir /s /q "%~1"
+  echo Deleted %~1\
+)
+goto :eof
 
 rem  ------------------------------------------------------------------------
