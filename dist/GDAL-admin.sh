@@ -62,6 +62,26 @@ function downloadFile()
 
 #-----------------------------------------------------------------------------
 
+function getPkgList()
+{
+  SvnPath=svn/trunk/external/gdal/packages/${PackageList}
+  PackageListUrl=${ProjectUrl}${SvnPath}
+  downloadFile $PackageListUrl $PackageList
+}
+
+#-----------------------------------------------------------------------------
+
+function getPlatform()
+{
+  if [ "$GdalAdmin_Platform" != "" ] ; then
+    Platform=$GdalAdmin_Platform
+  else
+    Platform=`uname -s`
+  fi
+}
+
+#-----------------------------------------------------------------------------
+
 # Remove all files that are unpacked from the GDAL package
 
 function cleanFiles()
@@ -127,13 +147,11 @@ if [ "$Action" = "update" ]  ; then
   GetPackageList=yes
 fi
 if [ "${GetPackageList}" = "yes" ] ; then
-  SvnPath=svn/trunk/external/gdal/packages/${PackageList}
-  PackageListUrl=${ProjectUrl}${SvnPath}
-  downloadFile $PackageListUrl $PackageList
+  getPkgList
 fi
 
-#  Determine the platform (win32 or win64)
-Platform=`uname -s`
+#  Determine the platform
+getPlatform
 echo Platform = ${Platform}
 
 #  Search for the platform in the package list
