@@ -82,6 +82,27 @@ function getPlatform()
 
 #-----------------------------------------------------------------------------
 
+function noPackage()
+{
+  cat <<-HERE
+	No GDAL package for platform "$Platform" is available at the web site:
+
+	   $ProjectUrl
+
+	You must either:
+
+	   A) obtain pre-compiled GDAL libraries and their C# bindings, or
+	   B) build the libraries and C# bindings manually.
+
+	In either case, the C# bindings must be installed in this folder:
+
+	  `pwd`/$GdalAdmin_InstallDir/managed/
+	HERE
+  exit 1
+}
+
+#-----------------------------------------------------------------------------
+
 # Remove all files that are unpacked from the GDAL package
 
 function cleanFiles()
@@ -157,21 +178,7 @@ echo Platform = ${Platform}
 #  Search for the platform in the package list
 PackageSHA1=`fgrep $Platform $PackageList | awk '{print $2}' `
 if [ "$PackageSHA1" = "" ] ; then
-  cat <<-HERE
-	No GDAL package for platform "$Platform" is available at the web site:
-
-	   $ProjectUrl
-
-	You must either:
-
-	   A) obtain pre-compiled GDAL libraries and their C# bindings, or
-	   B) build the libraries and C# bindings manually.
-
-	In either case, the C# bindings must be installed in this folder:
-
-	  `pwd`/$GdalAdmin_InstallDir/managed/
-	HERE
-  exit 1
+  noPackage  # exits script with code 1
 fi
 
 #  Download the binary package for the platform
