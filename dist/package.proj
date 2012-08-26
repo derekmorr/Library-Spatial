@@ -42,12 +42,20 @@
                 Regex="LIBRARY_VERSION"
                 ReplacementText="$(LibVersion)" />
 
+    <Copy SourceFiles="..\external\gdal\version.txt"
+          DestinationFiles="GDAL-version.txt" 
+          SkipUnchangedFiles="True" />
+
     <ItemGroup>
       <PackageContents Include="README.txt" />
       <PackageContents Include="$(ApiAssembly)" />
       <PackageContents Include="$(LandscapesAssembly)" />
       <PackageContents Include="$(RasterIOAssembly)" />
       <PackageContents Include="$(GdalRasterIOAssembly)" />
+
+      <PackageContents Include="GDAL-version.txt" />
+      <PackageContents Include="GDAL-admin.cmd" />
+      <PackageContents Include="GDAL-admin.sh" />
     </ItemGroup>
     <Zip ZipFileName="LSML-$(LibVersion).zip"
          Files="@(PackageContents)"

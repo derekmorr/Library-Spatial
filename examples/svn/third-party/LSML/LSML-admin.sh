@@ -7,7 +7,7 @@ function printUsage()
   cat <<EOT
 Usage: $ScriptName [ACTION]
 where ACTION is:
-   get       -- download and unpack LSML
+   get       -- download and unpack LSML and GDAL
    clean     -- remove all unpacked files
    distclean -- Same as "clean" action, plus remove all downloaded files
    help      -- display this message (default)
@@ -94,12 +94,18 @@ function getLibrary()
     echo Unpacking $LibraryPackage ...
     unzip $LibraryPackage
   fi
+
+  #  Get the GDAL libraries and C# bindings
+  ./GDAL-admin.sh get
 }
 
 # ----------------------------------------------------------------------------
 
 function cleanFiles()
 {
+  if [ -f GDAL-admin.sh ] ; then
+    ./GDAL-admin.sh clean
+  fi
   for file in *.dll README.txt ; do
     deleteFile $file
   done
@@ -109,6 +115,13 @@ function cleanFiles()
 
 function distClean()
 {
+  if [ -f GDAL-admin.sh ] ; then
+    ./GDAL-admin.sh distclean
+  fi
+  for file in GDAL-version.txt GDAL-admin.* ; do
+    deleteFile $file
+  done
+
   cleanFiles
   deleteFile $LibraryPackage
   if [ -d $DownloadDir ] ; then
@@ -147,6 +160,9 @@ else
 fi
 
 setEnvVars
+
+export GdalAdmin_VersionFile=GDAL-version.txt
+export GdalAdmin_InstallDir=GDAL
 
 case $Action in
   get)        getLibrary;;
