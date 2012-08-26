@@ -11,6 +11,7 @@ where ACTION is:
    update    -- update the local list of available GDAL packages with the
                 current list in the svn repos, then do the "get" action
    clean     -- remove all unpacked files
+   distclean -- Same as "clean" action, plus remove all downloaded files
    help      -- display this message (default)
 EOT
 }
@@ -24,7 +25,7 @@ function processArgs()
     Action=help
   else
     case $1 in
-      get | update | clean | help ) Action=$1;;
+      get | update | clean | distclean | help ) Action=$1;;
       *) usageError "unknown action \"$1\"";;
     esac
   fi
@@ -134,6 +135,18 @@ function deleteDir()
 
 #-----------------------------------------------------------------------------
 
+function distClean()
+{
+  cleanFiles
+
+  #  Delete downloaded files and the directory where they were put
+  deleteFile $PackageList
+  deleteFile $PackagePath
+  deleteDir  $GdalAdmin_InstallDir
+}
+
+#-----------------------------------------------------------------------------
+
 MissingVar=no
 for VarName in GdalAdmin_VersionFile GdalAdmin_InstallDir ; do
   if [ "${!VarName}" = "" ] ; then
@@ -151,7 +164,7 @@ case $Action in
   clean)  cleanFiles ; exit 0 ;;
   help)   printUsage ; exit 0 ;;
 esac
-#  $Action == get or update
+#  $Action == get, update or distclean
 
 #  Read GDAL version #
 GdalVersion=`awk '{print $1}' $GdalAdmin_VersionFile`
@@ -168,6 +181,12 @@ echo Platform = ${Platform}
 #  The binary package for the platform
 PackageName=gdal-${GdalVersion//./-}-csharp-${Platform}.tgz
 PackagePath=$GdalAdmin_InstallDir/${PackageName}
+
+if [ "$Action" = "distclean" ] ; then
+  distClean
+  exit 0
+fi
+#  $Action == get or update
 
 #  Fetch the list of available packages
 GetPackageList=no
