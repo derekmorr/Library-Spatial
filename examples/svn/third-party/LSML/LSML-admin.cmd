@@ -39,6 +39,9 @@ set FileInPkg=Landis.SpatialModeling.dll
 
 call WinPkgTools\getPackage.cmd %LibraryUrl% %LibraryPackage% %LibrarySHA1% %FileInPkg%
 
+rem  Get the GDAL libraries and C# bindings
+call :GDALadmin get
+
 
 :exitScript
 
@@ -93,7 +96,7 @@ rem  ------------------------------------------------------------------------
 
 echo Usage: %Script% [ACTION]
 echo where ACTION is:
-echo   get       -- download and unpack LSML
+echo   get       -- download and unpack LSML and GDAL
 echo   clean     -- remove all unpacked files
 echo   distclean -- Same as "clean" action, plus remove all downloaded files
 echo   help      -- display this message (default)
@@ -106,6 +109,8 @@ rem  ------------------------------------------------------------------------
 
 rem  Delete all the unpacked files
 
+call :GDALadmin clean
+
 for %%F in ("*.dll") do call :deleteFile "%%F"
 call :deleteFile README.txt
 
@@ -114,6 +119,11 @@ goto :eof
 rem  ------------------------------------------------------------------------
 
 :distclean
+
+call :GDALadmin distclean
+call :deleteFile GDAL-version.txt
+call :deleteFile GDAL-admin.cmd
+call :deleteFile GDAL-admin.sh
 
 call :clean
 call :deleteFile %LibraryPackage%
@@ -135,6 +145,18 @@ if exist "%~1" (
   del "%~1"
   echo Deleted %~1
 )
+goto :eof
+
+rem  ------------------------------------------------------------------------
+
+:GDALadmin
+
+set GdalAdmin_VersionFile=GDAL-version.txt
+set GdalAdmin_InstallDir=GDAL
+call WinPkgTools\initialize.cmd
+
+if exist GDAL-admin.cmd call GDAL-admin.cmd %1
+
 goto :eof
 
 rem  ------------------------------------------------------------------------
