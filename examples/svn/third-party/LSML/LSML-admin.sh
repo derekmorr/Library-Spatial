@@ -96,16 +96,14 @@ function getLibrary()
   fi
 
   #  Get the GDAL libraries and C# bindings
-  ./GDAL-admin.sh get
+  GDALadmin get
 }
 
 # ----------------------------------------------------------------------------
 
 function cleanFiles()
 {
-  if [ -f GDAL-admin.sh ] ; then
-    ./GDAL-admin.sh clean
-  fi
+  GDALadmin clean
   for file in *.dll README.txt ; do
     deleteFile $file
   done
@@ -115,9 +113,7 @@ function cleanFiles()
 
 function distClean()
 {
-  if [ -f GDAL-admin.sh ] ; then
-    ./GDAL-admin.sh distclean
-  fi
+  GDALadmin distclean
   for file in GDAL-version.txt GDAL-admin.* ; do
     deleteFile $file
   done
@@ -137,6 +133,20 @@ function deleteFile()
   if [ -f $1 ] ; then
     rm $1
     echo Deleted $1
+  fi
+}
+
+# ----------------------------------------------------------------------------
+
+function GDALadmin()
+{
+  if [ -f GDAL-admin.sh ] ; then
+    if [ ! -x GDAL-admin.sh ] ; then
+      chmod_GDALadmin_sh="chmod u+x GDAL-admin.sh"
+      echo $chmod_GDALadmin_sh
+      $chmod_GDALadmin_sh
+    fi
+    ./GDAL-admin.sh $1
   fi
 }
 
