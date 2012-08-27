@@ -1,39 +1,3 @@
-newoption {
-  trigger     = "gdal-csharp",
-  value       = "DIR",
-  description = "Directory with GDAL C# bindings (REQUIRED)",
-}
-
---  If an action other than clean is specified, verify that the
---  --gdal-csharp option was used to provide the location of the
---  GDAL C# bindings.
-
-function gdal_csharp_error(message)
-  print("Error with --gdal-csharp: " .. message)
-  error("command line error")
-end
-
-if _ACTION and _ACTION ~= "clean" then
-  if not _OPTIONS["gdal-csharp"] then
-    gdal_csharp_error("it is missing (use --help for details)")
-  end
-  gdal_csharp_dir = _OPTIONS["gdal-csharp"]
-  if string.match(gdal_csharp_dir, "^%s*$") then
-    gdal_csharp_error("no directory specified")
-  end
-  if os.isfile(gdal_csharp_dir) then
-    gdal_csharp_error('"'..gdal_csharp_dir..'" is not a directory')
-  end
-  if not os.isdir(gdal_csharp_dir) then
-    gdal_csharp_error('"'..gdal_csharp_dir..'" does not exist')
-  end
-else
-  -- set the directory variable so Premake don't report an error
-  -- about attempting to concatentate to a nil value in the "links"
-  -- function below
-  gdal_csharp_dir=""
-end
-
 build_dir="../build"
 
 solution "landis-spatial"
@@ -104,5 +68,5 @@ solution "landis-spatial"
       "System",
       "Landis_SpatialModeling",
       "Landis_RasterIO",
-      gdal_csharp_dir.."/gdal_csharp.dll"
+      "../external/gdal/libs/managed/gdal_csharp.dll"
     }
