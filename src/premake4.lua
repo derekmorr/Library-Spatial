@@ -70,3 +70,47 @@ solution "landis-spatial"
       "Landis_RasterIO",
       "../external/gdal/libs/managed/gdal_csharp.dll"
     }
+
+-- ==========================================================================
+
+-- Hook in a custom function that is called *after* the selected action
+-- is executed.
+
+require "premake4_util"
+
+afterAction_call(
+  function()
+    --  If generating Visual Studio files, add HintPath elements for references
+    --  with paths.
+    if string.startswith(_ACTION, "vs") then
+      modifyCSprojFiles()
+    end
+  end
+)
+
+-- The function below modifies the all the projects' *.csproj files, by
+-- changing each Reference that has a path in its Include attribute to use
+-- a HintPath element instead.
+
+require "CSProjFile"
+
+function modifyCSprojFiles()
+  for i, prj in ipairs(solution().projects) do
+    local csprojFile = CSprojFile(prj)
+    print("Modifying " .. csprojFile.relPath .. " ...")
+    csprojFile:readLines()
+
+    adjustReferencePaths(csprojFile)
+    print("  <HintPath> elements added to the project's references")
+    if _PREMAKE_VERSION == "4.3" then
+      -- In 4.3, the "framework" function doesn't work
+      addFramework(csprojFile)
+      print("  <TargetFrameworkVersion> element added to the project's properties")
+    end
+
+    ok, err = csprojFile:writeLines()
+    if not ok then
+      error(err, 0)
+    end
+  end -- for each project
+end
