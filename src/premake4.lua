@@ -2,8 +2,8 @@ build_dir="../build"
 
 solution "landis-spatial"
 
-  language "C#"
-  -- by default, premake uses "Any CPU" for platform
+  language "C#"    -- by default, premake uses "Any CPU" for platform
+  framework "3.5"
 
   configurations { "Debug", "Release" }
  
