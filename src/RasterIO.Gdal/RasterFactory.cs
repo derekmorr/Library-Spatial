@@ -36,23 +36,38 @@ namespace Landis.RasterIO.Gdal
         {
             extToDriver = new Dictionary<string, Driver>(StringComparer.InvariantCultureIgnoreCase);
         }
+
+        //---------------------------------------------------------------------
+
+        public RasterFormat GetFormat(string code)
+        {
+            if (code == null)
+                throw new ArgumentNullException();
+            Driver driver = OSGeo.GDAL.Gdal.GetDriverByName(code);
+            if (driver == null)
+                return null;
+            bool canWrite = driver.GetMetadataItem("DCAP_CREATE", "") == "YES";
+            return new RasterFormat(driver.ShortName,
+                                    driver.LongName,
+                                    canWrite);
+        }
  
         //---------------------------------------------------------------------
 
-        public void BindExtensionToFormat(string fileExtension,
-                                          string formatCode)
+        public void BindExtensionToFormat(string       fileExtension,
+                                          RasterFormat format)
         {
             if (fileExtension == null)
                 throw new ArgumentNullException("fileExtension");
             if (fileExtension.Length == 0 || fileExtension[0] != '.')
                 throw new ArgumentException("fileExtension does not start with a period");
 
-            if (formatCode == null) {
+            if (format == null) {
                 extToDriver.Remove(fileExtension);
             } else {
-                Driver driver = OSGeo.GDAL.Gdal.GetDriverByName(formatCode);
+                Driver driver = OSGeo.GDAL.Gdal.GetDriverByName(format.Code);
                 if (driver == null)
-                    throw new ArgumentException(string.Format("Unknown format code: \"{0}\"", formatCode));
+                    throw new ArgumentException(string.Format("Unknown format code: \"{0}\"", format.Code));
                 extToDriver[fileExtension] = driver;
             }
         }

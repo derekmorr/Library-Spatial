@@ -1,4 +1,4 @@
-// Copyright 2011 Green Code LLC
+// Copyright 2011-2012 Green Code LLC
 // All rights reserved.
 //
 // The copyright holders license this file under the New (3-clause) BSD
@@ -20,17 +20,25 @@ namespace Landis.SpatialModeling
     public interface IConfigurableRasterFactory : IRasterFactory
     {
         /// <summary>
+        /// Get information about a raster format.
+        /// </summary>
+        /// <param name="code">The format's code.</param>
+        /// <remarks>
+        /// If the raster factory does not recognize or support the format,
+        /// then null is returned.
+        /// </remarks>
+        RasterFormat GetFormat(string code);
+
+        /// <summary>
         /// Bind a file extension with a raster format.
         /// </summary>
         /// <param name="fileExtension">
         /// Must start with a period.
         /// </param>
-        /// <param name="formatCode">
-        /// A GDAL format code.  Format codes are listed in the "Code"
-        /// column in the table at http://gdal.org/formats_list.html.  If
-        /// null is specified, then the file extension becomes unbound.
+        /// <param name="format">
+        /// A raster format supported by the raster factory.
         /// </param>
-        void BindExtensionToFormat(string fileExtension,
-                                   string formatCode);
+        void BindExtensionToFormat(string       fileExtension,
+                                   RasterFormat format);
     }
 }
