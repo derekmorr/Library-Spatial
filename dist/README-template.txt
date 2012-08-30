@@ -10,4 +10,9 @@ This release contains:
                          library's RasterIO API
 
   Landis.RasterIO.Gdal.dll -- implementation of the library's RasterIO API
-                              using GDAL's C# bindings (not included)
+                              using GDAL's C# bindings
+
+  GDAL-version.txt -- the version of GDAL that this version of LSML needs
+
+  GDAL-admin.[cmd,sh] -- scripts for downloading and managing GDAL and its
+                         C# bindings pre-compiled for the current platform
