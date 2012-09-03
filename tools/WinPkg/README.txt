@@ -1,7 +1,7 @@
 A collection of tools for downloading and unpacking software packages
 (i.e., zip files) on Windows systems.
 
-Version 1.5 contains:
+Version 1.6 contains:
 
   Landis.Tools.DownloadFile.exe -- LANDIS Download-File Tool 1.1.4589.32177
   checksum.exe                  -- Checksum Calculator (Jan 20, 2008)
@@ -54,6 +54,12 @@ checksum, and unpack version 1.0 of the Foo library as follows:
 
 
 Revision History
+
+  v1.6 (Sep 3, 2012)
+
+    *  Added the optional "vars" argument to the initialize.cmd script.
+       It tells the script to only initialize the environment variables
+       related to the toolkit; no missing tools are downloaded.
 
   v1.5 (Aug 22, 2012)
 

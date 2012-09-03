@@ -10,6 +10,9 @@ set DownloadTool=%WinPkgTools%\Landis.Tools.DownloadFile.exe
 set ChecksumTool=%WinPkgTools%\checksum.exe
 set UnzipTool=%WinPkgTools%\unzip.exe
 
+rem  If "vars" argument specified, then don't download missing tools
+if "%~1" == "vars" goto :eof
+
 setlocal
 
 rem  The download tool is already present; check if the other 2 tools have
