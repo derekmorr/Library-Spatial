@@ -61,6 +61,10 @@ Revision History
        It tells the script to only initialize the environment variables
        related to the toolkit; no missing tools are downloaded.
 
+    *  The getPackage script now uses the -u option to unzip a package,
+       so the developer isn't asked about replacing files that have
+       already been unpacked.
+
   v1.5 (Aug 22, 2012)
 
     *  Added a clean.cmd script, which removes all the files that are

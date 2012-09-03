@@ -29,7 +29,7 @@ if exist "%UnpackedItem%" (
   rem  The closing quote is deliberately left off the argument for the -d
   rem  option below because of a bug in the unzip tool.  The bug includes
   rem  the closing quote in the paths of files being extracted.
-  "%UnZipTool%" "%PackagePath%" -d "%DirForUnpacking%
+  "%UnZipTool%" -u "%PackagePath%" -d "%DirForUnpacking%
 )
 goto :eof
 
