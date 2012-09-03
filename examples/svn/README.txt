@@ -23,7 +23,7 @@ property which is used to checkout the client part of that toolkit:
 
   Local Path   URL
   -----------  ---
-  WinPkgTools  https://landis-spatial.googlecode.com/svn/tags/tools/WinPkg/1.5/clients
+  WinPkgTools  https://landis-spatial.googlecode.com/svn/tags/tools/WinPkg/1.6/clients
 
 This minimizes the size and bandwidth of a checkout on non-Windows
 systems.  When "LSML-admin.cmd get" is run on a Windows system, the
