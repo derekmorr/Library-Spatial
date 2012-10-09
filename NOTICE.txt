@@ -1,6 +1,15 @@
 LANDIS Spatial Modeling Library (LSML)
 Copyright 2010-2012 Green Code LLC
 
-This library is licensed under the New BSD License (3-Clause), which is
-included with this project in the folder "LICENSES/", and is available
-on-line at <http://opensource.org/licenses/BSD-3-Clause>.
+This library is licensed under the New BSD License (3-Clause).
+
+Portions of this software are released by their copyright owners under
+various licenses.  Copies of all the licenses are located in the LICENSES
+folder, and are available on-line:
+
+  New BSD   -- http://opensource.org/licenses/BSD-3-Clause
+  LGPL v2.1 -- http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
+
+This software contains Premake code developed by Green Code LLC, which is
+available at <https://bitbucket.org/jdomingo/premake-util> under the GNU
+Lesser General Public License (LGPL).
