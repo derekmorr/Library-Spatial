@@ -1,0 +1,6 @@
+LANDIS Spatial Modeling Library (LSML)
+Copyright 2010-2012 Green Code LLC
+
+This library is licensed under the New BSD License (3-Clause), which is
+included with this project in the folder "LICENSES/", and is available
+on-line at <http://opensource.org/licenses/BSD-3-Clause>.
