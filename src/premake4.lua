@@ -118,6 +118,12 @@ function modifyCSprojFiles()
       print("  <TargetFrameworkVersion> element added to the project's properties")
     end
 
+    -- Generate XML documentation for API assembly (for Intellisense in IDEs)
+    if prj.name == "Landis_SpatialModeling" then
+      enableXMLdocumentation(csprojFile)
+      print("  Enabled the generation of XML documentation file")
+    end
+
     ok, err = csprojFile:writeLines()
     if not ok then
       error(err, 0)
