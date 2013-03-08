@@ -168,6 +168,13 @@ namespace Landis.SpatialModeling
 
         //---------------------------------------------------------------------
 
+        /// <summary>
+        /// Determines whether the specified object equals the current object.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.
+        /// </param>
+        /// <returns><b>true</b> if the specified object is equal to the
+        /// current object; otherwise, <b>false</b>.</returns>
         public override bool Equals(object obj)
         {
             //Check for null and compare run-time types.

@@ -20,6 +20,11 @@ namespace Landis.SpatialModeling
     public interface IIndexableGrid<TCell>
         : IGrid
     {
+        /// <summary>
+        /// Gets or sets the cell specified by its row and column.
+        /// </summary>
+        /// <param name="row">The cell's row.</param>
+        /// <param name="column">The cell's column</param>
         TCell this [int row,
                     int column]
         {
@@ -29,6 +34,10 @@ namespace Landis.SpatialModeling
 
         //---------------------------------------------------------------------
 
+        /// <summary>
+        /// Gets or sets the cell specified by its location.
+        /// </summary>
+        /// <param name="location">The cell's location.</param>
         TCell this [Location location]
         {
             get;

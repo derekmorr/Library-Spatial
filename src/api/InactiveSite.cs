@@ -14,6 +14,9 @@
 
 namespace Landis.SpatialModeling
 {
+    /// <summary>
+    /// Provides information about inactive sites on a landscape.
+    /// </summary>
     public static class InactiveSite
     {
         /// <summary>

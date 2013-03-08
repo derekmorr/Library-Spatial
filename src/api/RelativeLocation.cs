@@ -107,6 +107,13 @@ namespace Landis.SpatialModeling
 
         //---------------------------------------------------------------------
 
+        /// <summary>
+        /// Determines whether the specified object equals the current object.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.
+        /// </param>
+        /// <returns><b>true</b> if the specified object is equal to the
+        /// current object; otherwise, <b>false</b>.</returns>
         public override bool Equals(object obj)
         {
             //Check for null and compare run-time types.
@@ -118,6 +125,10 @@ namespace Landis.SpatialModeling
 
         //---------------------------------------------------------------------
 
+        /// <summary>
+        /// Computes a hash code for the current object.
+        /// </summary>
+        /// <returns>A hash code</returns>
         public override int GetHashCode()
         {
             return (int)(row ^ column);
@@ -125,6 +136,10 @@ namespace Landis.SpatialModeling
 
         //---------------------------------------------------------------------
 
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>A string formatted as "(row, column)".</returns>
         public override string ToString()
         {
             return "(" + row + ", " + column + ")";

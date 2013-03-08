@@ -18,6 +18,9 @@ using System.Collections.Generic;
 
 namespace Landis.SpatialModeling
 {
+    /// <summary>
+    /// A rectangular grid of sites (active and inactive).
+    /// </summary>
     public interface ILandscape
         : IGrid, IEnumerable<ActiveSite>
     {

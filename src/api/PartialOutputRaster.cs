@@ -14,6 +14,10 @@
 
 namespace Landis.SpatialModeling
 {
+    /// <summary>
+    /// Provides events and methods for handling output rasters that are
+    /// closed before all their data is written.
+    /// </summary>
     public static class PartialOutputRaster
     {
         /// <summary>
