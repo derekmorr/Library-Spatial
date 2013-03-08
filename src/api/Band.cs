@@ -17,6 +17,8 @@ namespace Landis.SpatialModeling
     /// <summary>
     /// A pixel band of a particular data type.
     /// </summary>
+    /// <typeparam name="T">The data type for band's value.
+    /// </typeparam>
     public class Band<T> : PixelBand
         where T : struct
     {
@@ -27,16 +29,17 @@ namespace Landis.SpatialModeling
 
         /// <summary>
         /// Constructs a new pixel band from its description.
-        /// <example>
-        ///   Band<float> Slope = "slope : tangent of inclination angle (rise/run)";
-        /// </example>
         /// </summary>
+        /// <remarks>
+        /// <example>
+        /// <code><![CDATA[
+        ///   Band<float> Slope = "slope : tangent of inclination angle (rise/run)";
+        /// ]]></code>
+        /// </example>
+        /// </remarks>
         /// <param name="description">
         /// A <see cref="System.String"/>
         /// </param>
-        /// <returns>
-        /// A <see cref="Band<T>"/>
-        /// </returns>
         public static implicit operator Band<T>(string description)
         {
             return new Band<T>(description);

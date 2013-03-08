@@ -26,7 +26,10 @@ namespace Landis.SpatialModeling
         /// <summary>
         /// Sets the bands for the pixel.  Derived classes should call this
         /// method in their constructors.
+        /// </summary>
+        /// <remarks>
         /// <example>
+        /// <code><![CDATA[
         /// public class MyPixel : Pixel
         /// {
         ///     public Band<float> Slope  = "slope : tangent of inclination angle (rise / run)";
@@ -37,10 +40,11 @@ namespace Landis.SpatialModeling
         ///         SetBands(Slope, Aspect);
         ///     }
         /// }
+        /// ]]></code>
         /// </example>
-        /// </summary>
+        /// </remarks>
         /// <param name="bands">
-        /// A <see cref="PixelBand[]"/>
+        /// An array of <see cref="PixelBand"/>
         /// </param>
         protected void SetBands(params PixelBand[] bands)
         {
