@@ -16,6 +16,7 @@
   <PropertyGroup>
     <AssemblyBuildDir>..\build\Release</AssemblyBuildDir>
     <ApiAssembly>$(AssemblyBuildDir)\Landis.SpatialModeling.dll</ApiAssembly>
+    <ApiXmlDoc>$(AssemblyBuildDir)\Landis.SpatialModeling.xml</ApiXmlDoc>
     <LandscapesAssembly>$(AssemblyBuildDir)\Landis.Landscapes.dll</LandscapesAssembly>
     <RasterIOAssembly>$(AssemblyBuildDir)\Landis.RasterIO.dll</RasterIOAssembly>
     <GdalRasterIOAssembly>$(AssemblyBuildDir)\Landis.RasterIO.Gdal.dll</GdalRasterIOAssembly>
@@ -49,6 +50,7 @@
     <ItemGroup>
       <PackageContents Include="README.txt" />
       <PackageContents Include="$(ApiAssembly)" />
+      <PackageContents Include="$(ApiXmlDoc)" />
       <PackageContents Include="$(LandscapesAssembly)" />
       <PackageContents Include="$(RasterIOAssembly)" />
       <PackageContents Include="$(GdalRasterIOAssembly)" />
