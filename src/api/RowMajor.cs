@@ -22,6 +22,9 @@ namespace Landis.SpatialModeling
         /// <summary>
         /// Gets the next location in row-major order.
         /// </summary>
+        /// <param name="location">
+        /// The current location.
+        /// </param>
         /// <param name="columns">
         /// The number of columns in the grid being traversed.
         /// </param>

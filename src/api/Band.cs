@@ -53,10 +53,6 @@ namespace Landis.SpatialModeling
         /// <summary>
         /// Computes the size in bytes for a pixel band's data type.
         /// </summary>
-        /// <param name="typeCode">
-        /// A <see cref="System.TypeCode"/> representing the pixel band's data
-        /// type.
-        /// </param>
         /// <returns>
         /// A <see cref="System.Int32"/>
         /// </returns>
