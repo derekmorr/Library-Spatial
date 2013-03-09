@@ -3,6 +3,7 @@ LANDIS Spatial Modeling Library (LSML) version LIBRARY_VERSION
 This release contains:
 
   Landis.SpatialModeling.dll -- the library's API
+  Landis.SpatialModeling.xml -- API's documentation (for IDE Intellisense)
 
   Landis.Landscapes.dll -- implementation of the library's Landscapes API
 
