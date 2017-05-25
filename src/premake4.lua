@@ -1,24 +1,23 @@
 build_dir="../build"
 
-GDALdir="../external/gdal"
-GDALcsharpLib=GDALdir .. "/libs/managed/gdal_csharp.dll"
+GDALcsharpLib="..GDAL/managed/gdal_csharp.dll"
 
 solution "landis-spatial"
 
   language "C#"    -- by default, premake uses "Any CPU" for platform
-  framework "3.5"
+  framework "4.0"
 
   configurations { "Debug", "Release" }
- 
+
   configuration "Debug"
     defines { "DEBUG" }
     flags { "Symbols" }
     targetdir ( build_dir .. "/Debug" )
- 
+
   configuration "Release"
     flags { "OptimizeSize" }
     targetdir ( build_dir .. "/Release" )
- 
+
   -- The library's API
   project "Landis_SpatialModeling"
     location "api"
@@ -87,11 +86,6 @@ afterAction_call(
     --  with paths.
     if string.startswith(_ACTION, "vs") then
       modifyCSprojFiles()
-
-      -- Fetch GDAL C# bindings for this platform if they're not present
-      if not os.isfile(GDALcsharpLib) then
-        GDALadmin("get")
-      end
     end
   end
 )
@@ -129,19 +123,4 @@ function modifyCSprojFiles()
       error(err, 0)
     end
   end -- for each project
-end
-
--- ==========================================================================
-
--- Run the GDAL-admin script with a specific action
-
-function GDALadmin(action)
-  local onWindows = runningOnWindows()
-  local scriptExt = iif(onWindows, "cmd", "sh")
-  local adminScript = GDALdir .. "/GDAL-admin." .. scriptExt
-  if onWindows then
-    adminScript = path.translate(adminScript, "\\")
-  end
-  print("Running " .. adminScript .. " '" .. action .. "'...")
-  os.execute(adminScript .. " " .. action)
 end

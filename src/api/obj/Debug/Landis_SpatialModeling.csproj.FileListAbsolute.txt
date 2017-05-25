@@ -1,0 +1,6 @@
+C:\Users\avala\Desktop\5-15 Landis\Landis-Spatial-Modeling-Library\build\Debug\Landis.SpatialModeling.xml
+C:\Users\avala\Desktop\5-15 Landis\Landis-Spatial-Modeling-Library\build\Debug\Landis.SpatialModeling.dll
+C:\Users\avala\Desktop\5-15 Landis\Landis-Spatial-Modeling-Library\build\Debug\Landis.SpatialModeling.pdb
+C:\Users\avala\Desktop\5-15 Landis\Landis-Spatial-Modeling-Library\src\api\obj\Debug\Landis.SpatialModeling.dll
+C:\Users\avala\Desktop\5-15 Landis\Landis-Spatial-Modeling-Library\src\api\obj\Debug\Landis.SpatialModeling.pdb
+C:\Users\avala\Desktop\5-15 Landis\Landis-Spatial-Modeling-Library\src\api\obj\Debug\Landis_SpatialModeling.csprojResolveAssemblyReference.cache

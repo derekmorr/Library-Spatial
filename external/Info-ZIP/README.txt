@@ -1,1 +1,0 @@
-The *.exe files in this folder are Win32 executables.
