@@ -8,9 +8,23 @@ Final Date:		26 Mar 2017
 
 
 
-The procedure below describes building  in Windows 10.
-See the README_LINUX.txt file for instructions on how to build and run
-LANDIS-II on Linux, along with a list of troubleshooting tips.
+
+The Premake build configuration tool (Premake 5) is needed to generate the C# solution file, 
+"landis-spatial.sln". This .sln file builds all four of the .dll assemblies which constitute the 
+library's API and its implementation:
+
+          folder/project                  description
+  ------------------------------------    -----------
+	api/Landis_SpatialModeling 		-- API
+	Landscapes/Landis_Landscapes    	-- Implementation of the Landscape module	
+	RasterIO/Landis_RasterIO        	-- Data types shared by Raster I/O implementations
+	RasterIO.Gdal/Landis_RasterIO_Gdal  	-- Implementation of the Raster I/O module using GDAL
+
+
+
+
+
+The procedure below describes building "landis-spatial.sln" in Windows 10.
 
 
 
@@ -49,7 +63,7 @@ C:\Users\..\..\Landis-Spatial-Modeling-Library\src>premake5 vs2015
         src/RasterIO.Gdal/Landis_RasterIO_Gdal.csproj
 	src/api/Landis_SpatialModeling.csproj
         
- 
+
 	
 
 ################################################################
@@ -63,7 +77,7 @@ Visual Studio (VS) and MonoDevelop. VS2015 is recommended.
 	a. Open the  "landis-spatial.sln" file in VS 2015
 
 
-	b. Use the pull down menu that currently shows, "Debug" and select, "Release"
+	b. Use the pull down menu and select, "Release"
 
 
 	c. Build the  "landis-spatial.sln" in Release Mode
@@ -71,10 +85,33 @@ Visual Studio (VS) and MonoDevelop. VS2015 is recommended.
 
 	d. Expected VS output:
 
+1>------ Build started: Project: Landis_SpatialModeling, Configuration: Release Any CPU ------
+1>C:\Users\bmarr\Desktop\working_SpatialLibrary\Landis-Spatial-Modeling-Library\src\api\Band.cs(49,29,49,37): warning CS1734: XML comment on 'Band<T>.ComputeSize()' has a paramref tag for 'typeCode', but there is no parameter by that name
+1>  Landis_SpatialModeling -> C:\Users\bmarr\Desktop\working_SpatialLibrary\Landis-Spatial-Modeling-Library\build\Release\Landis.SpatialModeling.dll
+2>------ Build started: Project: Landis_RasterIO, Configuration: Release Any CPU ------
+3>------ Build started: Project: Landis_Landscapes, Configuration: Release Any CPU ------
+2>  Landis_RasterIO -> C:\Users\bmarr\Desktop\working_SpatialLibrary\Landis-Spatial-Modeling-Library\build\Release\Landis.RasterIO.dll
+4>------ Build started: Project: Landis_RasterIO_Gdal, Configuration: Release Any CPU ------
+4>  Landis_RasterIO_Gdal -> C:\Users\bmarr\Desktop\working_SpatialLibrary\Landis-Spatial-Modeling-Library\build\Release\Landis.RasterIO.Gdal.dll
+3>  Landis_Landscapes -> C:\Users\bmarr\Desktop\working_SpatialLibrary\Landis-Spatial-Modeling-Library\build\Release\Landis.Landscapes.dll
+========== Build: 4 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
+
 
 	e. expected contents of C:\Users\...\...\build\Release 
 
 
+Landis.Landscapes.dll
+Landis.Landscapes.pdb
+Landis.RasterIO.dll
+Landis.RasterIO.pdb
+Landis.RasterIO.Gdal.dll
+Landis.RasterIO.Gdal.pdb
+Landis.SpatialModeling.dll
+Landis.SpatialModeling.pdb
+Landis.SpatialModeling.xml
+gdal_csharp.dll
+ogr_csharp.dll
+osr_csharp.dll
 
 
 

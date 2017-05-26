@@ -38,7 +38,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="gdal_csharp">
-      <HintPath>..\..GDAL\managed\gdal_csharp.dll</HintPath>
+      <HintPath>..\..\GDAL\managed\gdal_csharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
