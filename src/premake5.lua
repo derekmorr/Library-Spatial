@@ -1,6 +1,6 @@
 build_dir="../build"
 
-GDALcsharpLib="..GDAL/managed/gdal_csharp.dll"
+GDALcsharpLib="../GDAL/managed/gdal_csharp.dll"
 
 solution "landis-spatial"
 
