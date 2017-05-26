@@ -1,0 +1,5 @@
+C:\Users\avala\Desktop\5-15 Landis\Landis-Spatial-Modeling-Library\build\Debug\Landis.RasterIO.dll
+C:\Users\avala\Desktop\5-15 Landis\Landis-Spatial-Modeling-Library\build\Debug\Landis.RasterIO.pdb
+C:\Users\avala\Desktop\5-15 Landis\Landis-Spatial-Modeling-Library\src\RasterIO\obj\Debug\Landis_RasterIO.csprojResolveAssemblyReference.cache
+C:\Users\avala\Desktop\5-15 Landis\Landis-Spatial-Modeling-Library\src\RasterIO\obj\Debug\Landis.RasterIO.dll
+C:\Users\avala\Desktop\5-15 Landis\Landis-Spatial-Modeling-Library\src\RasterIO\obj\Debug\Landis.RasterIO.pdb

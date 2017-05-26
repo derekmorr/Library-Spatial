@@ -1,11 +1,13 @@
 The Premake build configuration tool is needed to generate the C# solution
-and project files.  Premake is available from:
+that includes all 4 of the required project files.  Premake is available from:
 
   http://industriousone.com/premake
 
-Premake 4.3 has been used successfully to generate VS2008 project files.
-In order to generate VS2010 project files, Premake 4.4 (currently, beta 4)
+Premake 4.3 has been used successfully to generate VS2008 solution files.
+In order to generate VS2010 project files use premake 4.4
 is needed because Premake 4.3 doesn't support VS2010 C# projects.
+
+Premake 5 has been used successfully to generate VS2017 solution files. command: 'Premake5 VS2017'
 
 This solution contains four projects that represent the library's API and
 its implementation:
@@ -19,15 +21,6 @@ its implementation:
   RasterIO.Gdal/Landis_RasterIO_Gdal   -- Implementation of the Raster I/O
                                           module using GDAL
 
-The Raster I/O implementation based on GDAL uses its C# bindings.  Therefore,
-these bindings must be present in order to build that project.  The directory
-where the bindings must be located is:
+The Raster I/O implementation based on GDAL uses its C# bindings.  These 
 
-   {ProjectRoot}/external/gdal/libs/managed/
-
-When Premake generates the C# solution and project files (i.e., its action
-starts with "vs"), it will also try to download pre-compiled files for GDAL
-and C# bindings from the landis-spatial project web site.  If they are not
-available for the current platform, then Premake will notify the developer
-to either obtain pre-compiled files from another location, or manually build
-GDAL and its C# bindings from source.
+   {ProjectRoot}/GDAL/managed
