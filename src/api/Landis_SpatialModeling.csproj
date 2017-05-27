@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BC1BFAE2-A815-2335-9182-B9457D1B89A1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Landis.SpatialModeling</RootNamespace>
+    <AssemblyName>Landis.SpatialModeling</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\Debug\</OutputPath>
+    <DocumentationFile>..\..\build\Debug\\Landis.SpatialModeling.xml</DocumentationFile>
+    <GenerateDocumentation>true</GenerateDocumentation>
+    <BaseIntermediateOutputPath>obj\Debug\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\Release\</OutputPath>
+    <DocumentationFile>..\..\build\Release\\Landis.SpatialModeling.xml</DocumentationFile>
+    <GenerateDocumentation>true</GenerateDocumentation>
+    <BaseIntermediateOutputPath>obj\Release\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
+    <DefineConstants></DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveSite.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Band.cs" />
+    <Compile Include="Dimensions.cs" />
+    <Compile Include="Grid.cs" />
+    <Compile Include="IConfigurableRasterFactory.cs" />
+    <Compile Include="IGrid.cs" />
+    <Compile Include="IIndexableGrid.cs" />
+    <Compile Include="IInputGrid.cs" />
+    <Compile Include="IInputRaster.cs" />
+    <Compile Include="ILandscape.cs" />
+    <Compile Include="ILandscapeFactory.cs" />
+    <Compile Include="IOutputRaster.cs" />
+    <Compile Include="IRaster.cs" />
+    <Compile Include="IRasterFactory.cs" />
+    <Compile Include="ISiteVar.cs" />
+    <Compile Include="ISiteVariable.cs" />
+    <Compile Include="InactiveSite.cs" />
+    <Compile Include="InactiveSiteMode.cs" />
+    <Compile Include="Location.cs" />
+    <Compile Include="PartialOutputRaster.cs" />
+    <Compile Include="Pixel.cs" />
+    <Compile Include="PixelBand.cs" />
+    <Compile Include="RasterFormat.cs" />
+    <Compile Include="RelativeLocation.cs" />
+    <Compile Include="RowMajor.cs" />
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Site.cs" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
