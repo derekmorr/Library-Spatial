@@ -1,2 +1,2 @@
-# Landis-Spatial-Modeling-Library
-The library that handles spatial interactions for LANDIS.
+# Library-Spatial
+This library handles spatial interactions for LANDIS.  It was designed to be independent of the LANDIS-II framework and therefore could readily be used for any model that requires spatial interactions.
