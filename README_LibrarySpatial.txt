@@ -1,10 +1,10 @@
-Title:			README_Landis-Spatial-Modeling-Libray
+Title:			README_Library-Spatial 
 Project:		LANDIS-II Landscape Change Model
-Project Component:	Spatial Modeling Library
-Component Deposition:	https://github.com/LANDIS-II-Foundation/Landis-Spatial-Modeling-Library
+Project Component:	Landis Spatial Modeling Libraries (LSML)
+Component Deposition:	https://github.com/LANDIS-II-Foundation/Landis-Spatial
 Author:			LANDIS-II Foundation
 Origin Date:		26 May 2017
-Final Date:		26 Mar 2017
+Final Date:		15 June 2017
 
 
 
