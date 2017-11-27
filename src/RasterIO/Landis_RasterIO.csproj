@@ -2,8 +2,6 @@
   <PropertyGroup>
     <RootNamespace>Landis.RasterIO</RootNamespace>
     <AssemblyName>Landis.RasterIO</AssemblyName>
-    <AssemblyProduct>LANDIS Spatial Modeling Library</AssemblyProduct>
-    <AssemblyVersion>1.0</AssemblyVersion>
     <AssemblyDescription>Raster I/O for spatial modeling</AssemblyDescription>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>

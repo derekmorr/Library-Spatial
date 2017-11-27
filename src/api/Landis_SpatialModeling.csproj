@@ -3,8 +3,6 @@
     <RootNamespace>Landis.SpatialModeling</RootNamespace>
     <AssemblyName>Landis.SpatialModeling</AssemblyName>
     <AssemblyDescription>Library API</AssemblyDescription>
-    <AssemblyProduct>LANDIS Spatial Modeling Library</AssemblyProduct>
-    <AssemblyVersion>1.0</AssemblyVersion>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 </Project>
