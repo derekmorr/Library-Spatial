@@ -1,85 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DFC089D9-CB4F-13A3-746E-279E60DC2349}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Landis.RasterIO.Gdal</RootNamespace>
     <AssemblyName>Landis.RasterIO.Gdal</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\build\Debug\</OutputPath>
-    <BaseIntermediateOutputPath>obj\Debug\</BaseIntermediateOutputPath>
-    <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <DefineConstants>DEBUG</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\build\Release\</OutputPath>
-    <BaseIntermediateOutputPath>obj\Release\</BaseIntermediateOutputPath>
-    <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <DefineConstants></DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <AssemblyDescription>Raster I/O using GDAL</AssemblyDescription>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
     <Reference Include="gdal_csharp">
       <HintPath>..\..\GDAL\managed\gdal_csharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="BandBlock.cs" />
-    <Compile Include="BandBuffer.cs" />
-    <Compile Include="BlockDimensions.cs" />
-    <Compile Include="DriverInfo.cs" />
-    <Compile Include="GdalBandIO.cs" />
-    <Compile Include="GdalDataType.cs" />
-    <Compile Include="GdalDriverInfo.cs" />
-    <Compile Include="GdalInputRaster.cs" />
-    <Compile Include="GdalOutputRaster.cs" />
-    <Compile Include="GdalSystem.cs" />
-    <Compile Include="InputBand.cs" />
-    <Compile Include="OutputBand.cs" />
-    <Compile Include="RasterBandReader.cs" />
-    <Compile Include="RasterBandReaders.cs" />
-    <Compile Include="RasterBandWriter.cs" />
-    <Compile Include="RasterBandWriters.cs" />
-    <Compile Include="RasterFactory.cs" />
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>SharedAssemblyInfo.cs</Link>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\api\Landis_SpatialModeling.csproj">
-      <Project>{BC1BFAE2-A815-2335-9182-B9457D1B89A1}</Project>
-      <Name>Landis_SpatialModeling</Name>
     </ProjectReference>
     <ProjectReference Include="..\RasterIO\Landis_RasterIO.csproj">
-      <Project>{C8861E6A-3412-8C2E-3D23-0F23A92DE82E}</Project>
-      <Name>Landis_RasterIO</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
