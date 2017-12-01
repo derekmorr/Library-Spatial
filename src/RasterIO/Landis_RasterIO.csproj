@@ -3,7 +3,7 @@
     <RootNamespace>Landis.RasterIO</RootNamespace>
     <AssemblyName>Landis.RasterIO</AssemblyName>
     <AssemblyDescription>Raster I/O for spatial modeling</AssemblyDescription>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\api\Landis_SpatialModeling.csproj"/>

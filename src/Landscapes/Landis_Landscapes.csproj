@@ -3,7 +3,7 @@
     <RootNamespace>Landis.Landscapes</RootNamespace>
     <AssemblyName>Landis.Landscapes</AssemblyName>
     <AssemblyDescription>Landscape data for spatial modeling</AssemblyDescription>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>  
   <ItemGroup>
     <ProjectReference Include="..\api\Landis_SpatialModeling.csproj">

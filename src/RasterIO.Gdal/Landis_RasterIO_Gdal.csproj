@@ -3,7 +3,7 @@
     <RootNamespace>Landis.RasterIO.Gdal</RootNamespace>
     <AssemblyName>Landis.RasterIO.Gdal</AssemblyName>
     <AssemblyDescription>Raster I/O using GDAL</AssemblyDescription>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="gdal_csharp">
