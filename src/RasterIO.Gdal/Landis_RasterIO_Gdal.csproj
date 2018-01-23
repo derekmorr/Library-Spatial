@@ -6,14 +6,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="gdal_csharp">
-      <HintPath>..\..\GDAL\managed\gdal_csharp.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\api\Landis_SpatialModeling.csproj">
     </ProjectReference>
     <ProjectReference Include="..\RasterIO\Landis_RasterIO.csproj">
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Gdal.Core" Version="1.0.0" />
   </ItemGroup>
 </Project>

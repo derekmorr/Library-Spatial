@@ -1,8 +1,0 @@
-C:\Users\avala\Desktop\5-15 Landis\Landis-Spatial-Modeling-Library\src\RasterIO.Gdal\obj\Debug\Landis_RasterIO_Gdal.csprojResolveAssemblyReference.cache
-C:\Users\avala\Desktop\5-15 Landis\Landis-Spatial-Modeling-Library\build\Debug\Landis.RasterIO.Gdal.dll
-C:\Users\avala\Desktop\5-15 Landis\Landis-Spatial-Modeling-Library\build\Debug\Landis.RasterIO.Gdal.pdb
-C:\Users\avala\Desktop\5-15 Landis\Landis-Spatial-Modeling-Library\src\RasterIO.Gdal\obj\Debug\Landis.RasterIO.Gdal.dll
-C:\Users\avala\Desktop\5-15 Landis\Landis-Spatial-Modeling-Library\src\RasterIO.Gdal\obj\Debug\Landis.RasterIO.Gdal.pdb
-C:\Users\bmarr\Desktop\working_LibrarySpatial\Landis-Spatial-Modeling-Library\src\RasterIO.Gdal\obj\Debug\Landis_RasterIO_Gdal.csprojResolveAssemblyReference.cache
-C:\Users\bmarr\Desktop\working_LibrarySpatial\Landis-Spatial-Modeling-Library\src\RasterIO.Gdal\obj\Debug\Landis.RasterIO.Gdal.dll
-C:\Users\bmarr\Desktop\working_LibrarySpatial\Landis-Spatial-Modeling-Library\src\RasterIO.Gdal\obj\Debug\Landis.RasterIO.Gdal.pdb
